@@ -1,4 +1,4 @@
 const User = require("./userModel");
 const Note = require("./noteModel");
 
-module.exports = { User, Note };
+module.exports = { Note, User };
