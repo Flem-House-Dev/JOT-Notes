@@ -4,9 +4,6 @@ const express = require("express");
 const db = require("./config/connection");
 const routes = require("./routes/api");
 
-console.log(".ENV TEST VAR: ", process.env.TEST_VAR);
-// console.log("NODE_ENV: ", process.env.NODE_ENV);
-
 const PORT = process.env.PORT || 3001;
 const app = express();
 
