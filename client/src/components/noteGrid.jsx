@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from "react";
-import Note from "./note";
+import Note from "./Note";
 import AuthContext from "../context/AuthContext";
 
 const NoteGrid = ({
