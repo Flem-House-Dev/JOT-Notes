@@ -7,17 +7,48 @@ export default defineConfig({
   build: {
     sourcemap: true,
   },
-  plugins: [react()],
+  plugins: [
+    react(),
+    {
+      name: "log-resolve",
+      resolveId(source, importer) {
+        console.log(`Resolving: ${source} from ${importer}`);
+        console.log(`Resolving: ${source} from ${importer}`);
+        if (source.includes("NoteForm")) {
+          console.log(
+            `NoteForm resolution: ${path.resolve(
+              __dirname,
+              "src/components/NoteForm.jsx"
+            )}`
+          );
+          console.log(
+            `File exists: ${fs.existsSync(
+              path.resolve(__dirname, "src/components/NoteForm.jsx")
+            )}`
+          );
+        }
+      },
+    },
+  ],
+
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
+  build: {
+    outDir: "build",
+  },
   server: {
     port: 3000,
     open: true,
     proxy: {
-      '/api': {
-        target: 'http://localhost:3001',
+      "/api": {
+        target: "http://localhost:3001",
         changeOrigin: true,
         secure: false,
-        rewrite: (path) => path.replace(/^\/api/, '/api')
+        rewrite: (path) => path.replace(/^\/api/, "/api"),
       },
-    }
+    },
   },
 });
