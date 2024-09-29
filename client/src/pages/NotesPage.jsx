@@ -1,8 +1,8 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import NoteForm from "../components/NoteForm.jsx";
-import NoteGrid from "../components/NoteGrid.jsx";
-import AuthContext from "../context/AuthContext.jsx";
+import NoteForm from "../components/NoteForm";
+import NoteGrid from "../components/NoteGrid";
+import AuthContext from "../context/AuthContext";
 import "../App.css";
 
 const NotesPage = () => {
