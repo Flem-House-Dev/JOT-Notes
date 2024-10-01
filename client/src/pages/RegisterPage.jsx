@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
+import "../LoginPage.css";
 
 const RegisterPage = () => {
   const { register } = useContext(AuthContext);
@@ -22,33 +23,41 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="register-form">
-      <h2>Register</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="username"
-          placeholder="username"
-          value={formData.username}
-          onChange={handleChange}
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="email"
-          value={formData.email}
-          onChange={handleChange}
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-        />
-        <button type="submit">Register</button>
-      </form>
-      <p>Already have an account? <Link to="/login">Login here</Link></p>
+    <div className="register-page">
+      <div className="register-form">
+        <h2>Register</h2>
+        <form onSubmit={handleSubmit}>
+          <input
+            className="input-field"
+            type="text"
+            name="username"
+            placeholder="username"
+            value={formData.username}
+            onChange={handleChange}
+          />
+          <input
+            className="input-field"
+            type="email"
+            name="email"
+            placeholder="email"
+            value={formData.email}
+            onChange={handleChange}
+          />
+          <input
+            className="input-field"
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleChange}
+          />
+          <button className="register-btn" type="submit">Register</button>
+        </form>
+        <div className="auth-links">
+          <p>Already have an account? <Link to="/login">Login here</Link></p>
+        </div>
+      </div>
+
     </div>
   );
 };

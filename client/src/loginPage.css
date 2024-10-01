@@ -1,0 +1,103 @@
+/* Mobile first */
+.login-page, .register-page {
+    display: flex;
+    /* flex-direction: column; */
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    /* background-color: #f5f5f5; */
+    background-color: #f5f7fa
+}
+
+
+
+.login-form, .register-form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4 1012px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 80%;
+    max-width: 400px;
+}
+
+.logo-small {
+    width: 80px;
+    margin-bottom: 20px;
+}
+
+.login-form h2, .register-form h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.input-field {
+    width: 90%;
+    padding: 12px;
+    margin-bottom: 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.login-btn, .register-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.login-btn:hover, .register-btn:hover {
+    background-color: #357abd;
+}
+
+.auth-links {
+    margin-top: 20px;
+}
+
+.auth-links a {
+    color: #4a90e2;
+    font-size: 14px;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+/* Desktop */
+
+@media screen and (min-width: 768px) {
+    .logo-small {
+        width: 120px;
+    }
+
+    .login-form h2 {
+        font-size: 24px;
+    }
+
+    .input-field {
+        padding: 16px;
+        font-size: 18px;
+    }
+    
+    .login-btn {
+        padding: 14px;
+        font-size: 18px;
+    }
+
+    /* .loginPage {
+        background-color: #f5f7fa;
+    } */
+
+    .login-form {
+        padding: 40px;
+    }
+
+    .auth-links a {
+        font-size: 16px;
+    }
+}
