@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import "../LoginPage.css";
+import logo from "../assets/note-and-pencil.png";
 
 const LoginPage = () => {
   const { login, isAuthenticated } = useContext(AuthContext);
@@ -39,6 +40,7 @@ const LoginPage = () => {
   return (
     <div className="login-page">
       <div className="login-form">
+        <img src={logo} alt="JOT notes logo" className="logo-small" />
         <h2>Login</h2>
         {error && <p className="error">{error}</p>}
         <form onSubmit={handleSubmit}>

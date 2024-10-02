@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import "../LoginPage.css";
+import logo from "../assets/note-and-pencil.png";
 
 const RegisterPage = () => {
   const { register } = useContext(AuthContext);
@@ -25,6 +26,7 @@ const RegisterPage = () => {
   return (
     <div className="register-page">
       <div className="register-form">
+      <img src={logo} alt="JOT notes logo" className="logo-small" />
         <h2>Register</h2>
         <form onSubmit={handleSubmit}>
           <input

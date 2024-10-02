@@ -20,7 +20,7 @@ const NotesPage = () => {
   };
 
   return (
-    <>
+    <div className="note-page-container">
       <div className="notes-page-header">
         <h1>Your Notes</h1>
         {/* Add a logout button */}
@@ -40,13 +40,14 @@ const NotesPage = () => {
       />
 
       <NoteGrid
+        className="note-grid"
         notes={notes}
         setNotes={setNotes}
         setSelectedNote={setSelectedNote}
         setTitle={setTitle}
         setContent={setContent}
       />
-    </>
+    </div>
   );
 };
 

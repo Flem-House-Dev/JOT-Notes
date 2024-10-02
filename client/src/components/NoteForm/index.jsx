@@ -85,39 +85,45 @@ const NoteForm = ({
   // ---------------------------------------------------
 
   return (
-    <form
-      className="note-form"
-      onSubmit={(event) => {
-        event.preventDefault();
-        selectedNote ? handleUpdateNote(event) : handleAddNote(event);
-      }}
-    >
-      <input
-        value={title}
-        onChange={(event) => setTitle(event.target.value)}
-        name="title"
-        type="text"
-        placeholder="Title"
-        required
-      />
-      <textarea
-        value={content}
-        onChange={(event) => setContent(event.target.value)}
-        name="content"
-        placeholder="note"
-        rows={10}
-        required
-      ></textarea>
+    <div className="note-form-container">
+      <form
+        className="note-form"
+        onSubmit={(event) => {
+          event.preventDefault();
+          selectedNote ? handleUpdateNote(event) : handleAddNote(event);
+        }}
+      >
+        <input
+          className="note-title"
+          value={title}
+          onChange={(event) => setTitle(event.target.value)}
+          name="title"
+          type="text"
+          placeholder="Title"
+          required
+        />
+        <textarea
+          className="note-content"
+          value={content}
+          onChange={(event) => setContent(event.target.value)}
+          name="content"
+          placeholder="note"
+          rows={10}
+          required
+        ></textarea>
 
-      {selectedNote ? (
-        <div className="edit-buttons">
-          <button type="submit">Save</button>
-          <button onClick={handleCancel}>Cancel</button>
+        <div className="note-form-actions">
+          {selectedNote ? (
+            <div className="edit-buttons">
+              <button className="save-btn" type="submit">Save</button>
+              <button className="cancel-btn" onClick={handleCancel}>Cancel</button>
+            </div>
+          ) : (
+            <button className="add-btn" type="submit">Add Note</button>
+          )}
         </div>
-      ) : (
-        <button type="submit">Add Note</button>
-      )}
-    </form>
+      </form>
+    </div>
   );
 };
 

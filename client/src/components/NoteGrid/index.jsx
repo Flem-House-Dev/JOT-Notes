@@ -19,8 +19,8 @@ const NoteGrid = ({
         const response = await fetch("/api/notes", {
           method: "GET",
           headers: {
-            Authorization: 'Bearer ' + token,
-          }
+            Authorization: "Bearer " + token,
+          },
         });
 
         if (!response.ok) {
@@ -41,18 +41,20 @@ const NoteGrid = ({
   // ---------------------------------------------------
 
   return (
-    <div className="notes-grid">
-      {notes.map((n) => (
-        <Note
-          note={n}
-          key={n._id}
-          notes={notes}
-          setContent={setContent}
-          setNotes={setNotes}
-          setSelectedNote={setSelectedNote}
-          setTitle={setTitle}
-        />
-      ))}
+    <div className="note-grid-container">
+      <div className="note-grid">
+        {notes.map((n) => (
+          <Note
+            note={n}
+            key={n._id}
+            notes={notes}
+            setContent={setContent}
+            setNotes={setNotes}
+            setSelectedNote={setSelectedNote}
+            setTitle={setTitle}
+          />
+        ))}
+      </div>
     </div>
   );
 };
