@@ -1,3 +1,7 @@
+import Card from 'react-bootstrap/Card';
+import { XSquare } from 'react-bootstrap-icons';
+
+
 const Note = ({
   note,
   notes,
@@ -39,18 +43,36 @@ const Note = ({
   // ---------------------------------------------------
 
   return (
+    // <>
+    //   <div className="note-item note-card" onClick={() => handleNoteClick(note)}>
+    //     <div
+    //       className="notes-header"
+    //       onClick={(event) => deleteNote(event, note._id)}
+    //     >
+    //       <button>x</button>
+    //     </div>
+    //     <h3 className="note-title">{note.title}</h3>
+    //     <p className="note-snippet">{note.content}</p>
+    //     {/* <span className="note-date"></span> */}
+    //   </div>
+    // </>
+
     <>
-      <div className="note-item note-card" onClick={() => handleNoteClick(note)}>
-        <div
-          className="notes-header"
-          onClick={(event) => deleteNote(event, note._id)}
-        >
-          <button>x</button>
+      <Card className='p-2' style={{ width: "18rem" }}>
+        <div className="" onClick={() => handleNoteClick(note)}>
+          <div
+            className="notes-header"
+            onClick={(event) => deleteNote(event, note._id)}
+          >
+            <XSquare className='close-btn'/>
+          </div>
+          <Card.Body>
+            <Card.Title className="n">{note.title}</Card.Title>
+            <Card.Text className="">{note.content}</Card.Text>
+            {/* <span className="note-date"></span> */}
+          </Card.Body>
         </div>
-        <h3 className="note-title">{note.title}</h3>
-        <p className="note-snippet">{note.content}</p>
-        {/* <span className="note-date"></span> */}
-      </div>
+      </Card>
     </>
   );
 };

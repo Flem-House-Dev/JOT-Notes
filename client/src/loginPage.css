@@ -253,6 +253,10 @@ padding: 20px;
   max-width: fit-content;
 }
 
+.close-btn {
+  cursor: pointer;
+}
+
 /* note grid for desktop */
 @media (min-width: 768px) {
     .note-grid {

@@ -1,6 +1,9 @@
 import React, { useEffect, useContext } from "react";
 import Note from "../Note";
 import AuthContext from "../../context/AuthContext";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 const NoteGrid = ({
   notes,
@@ -41,21 +44,28 @@ const NoteGrid = ({
   // ---------------------------------------------------
 
   return (
-    <div className="note-grid-container">
-      <div className="note-grid">
-        {notes.map((n) => (
-          <Note
-            note={n}
-            key={n._id}
-            notes={notes}
-            setContent={setContent}
-            setNotes={setNotes}
-            setSelectedNote={setSelectedNote}
-            setTitle={setTitle}
-          />
-        ))}
+    <Container>
+      <div className="">
+        <div className="">
+          <Row>
+            {notes.map((n) => (
+              <Col key={n._id}>
+                <div className="mb-4">
+                  <Note
+                    note={n}
+                    notes={notes}
+                    setContent={setContent}
+                    setNotes={setNotes}
+                    setSelectedNote={setSelectedNote}
+                    setTitle={setTitle}
+                  />
+                </div>
+              </Col>
+            ))}
+          </Row>
+        </div>
       </div>
-    </div>
+    </Container>
   );
 };
 
