@@ -211,15 +211,16 @@ padding: 20px;
 } */
 
 .note-card:hover {
-    outline: 1px solid #333;
-    box-shadow: 2px 2px 25px gray;
-    transition: .5s ease;
+    outline: 1px solid #ccc;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+    transition: all .3s ease;
 }
 
 .note-card {
     outline: none;
     box-shadow: none;
-    transition: .5s ease;
+    transition: .25s ease;
 }
 
 /* .note-card:hover {
@@ -238,16 +239,17 @@ padding: 20px;
 } */
 
 .note-date {
-    font-size: 12px;
-    color: #888;
+    font-size: .8rem;
+    color: #aaa;
     display: block;
     text-align: right;
+    font-style: italic;
 }
 
 .notes-header {
   display: flex;
   justify-content: flex-end;
-} */
+} 
 
 /* .notes-header button {
   font-size: 16px;
@@ -257,9 +259,9 @@ padding: 20px;
   max-width: fit-content;
 } */
 
-.close-btn {
+/* .close-btn:hover {
   cursor: pointer;
-}
+} */
 
 /* note grid for desktop */
 /* @media (min-width: 768px) {

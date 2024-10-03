@@ -45,24 +45,22 @@ const NoteGrid = ({
 
   return (
     <Container className="w-75 m-auto">
-        <div >
-          <Row>
-            {notes.map((n) => (
-              <Col className="flex-grow-0" key={n._id}>
-                <div className="mb-4 d-flex justify-content-start">
-                  <Note
-                    note={n}
-                    notes={notes}
-                    setContent={setContent}
-                    setNotes={setNotes}
-                    setSelectedNote={setSelectedNote}
-                    setTitle={setTitle}
-                  />
-                </div>
-              </Col>
-            ))}
-          </Row>
-        </div>
+      <Row>
+        {notes.map((n) => (
+          <Col className="flex-grow-0" key={n._id} xs={12} md={6} lg={4}>
+            <div className="mb-4 d-flex justify-content-start">
+              <Note
+                note={n}
+                notes={notes}
+                setContent={setContent}
+                setNotes={setNotes}
+                setSelectedNote={setSelectedNote}
+                setTitle={setTitle}
+              />
+            </div>
+          </Col>
+        ))}
+      </Row>
     </Container>
   );
 };
