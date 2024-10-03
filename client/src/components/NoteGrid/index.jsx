@@ -44,13 +44,12 @@ const NoteGrid = ({
   // ---------------------------------------------------
 
   return (
-    <Container>
-      <div className="">
-        <div className="">
+    <Container className="w-75 m-auto">
+        <div >
           <Row>
             {notes.map((n) => (
-              <Col key={n._id}>
-                <div className="mb-4">
+              <Col className="flex-grow-0" key={n._id}>
+                <div className="mb-4 d-flex justify-content-start">
                   <Note
                     note={n}
                     notes={notes}
@@ -64,7 +63,6 @@ const NoteGrid = ({
             ))}
           </Row>
         </div>
-      </div>
     </Container>
   );
 };

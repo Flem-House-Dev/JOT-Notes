@@ -1,3 +1,8 @@
+import Card from "react-bootstrap/Card";
+import Form from "react-bootstrap/Form";
+import FloatingLabel from "react-bootstrap/FloatingLabel";
+import Button from "react-bootstrap/Button";
+
 const NoteForm = ({
   title,
   content,
@@ -86,43 +91,93 @@ const NoteForm = ({
 
   return (
     <div className="note-form-container">
-      <form
-        className="note-form"
-        onSubmit={(event) => {
-          event.preventDefault();
-          selectedNote ? handleUpdateNote(event) : handleAddNote(event);
-        }}
-      >
-        <input
-          className="note-title"
-          value={title}
-          onChange={(event) => setTitle(event.target.value)}
-          name="title"
-          type="text"
-          placeholder="Title"
-          required
-        />
-        <textarea
-          className="note-content"
-          value={content}
-          onChange={(event) => setContent(event.target.value)}
-          name="content"
-          placeholder="note"
-          rows={10}
-          required
-        ></textarea>
+      <Card className="p-3 w-50">
+        <Form
+          // className="note-form"
+          onSubmit={(event) => {
+            event.preventDefault();
+            selectedNote ? handleUpdateNote(event) : handleAddNote(event);
+          }}
+        >
+          {/* <input
+            // className="note-title"
+            value={title}
+            onChange={(event) => setTitle(event.target.value)}
+            name="title"
+            type="text"
+            placeholder="Title"
+            required
+          /> */}
 
-        <div className="note-form-actions">
-          {selectedNote ? (
-            <div className="edit-buttons">
-              <button className="save-btn" type="submit">Save</button>
-              <button className="cancel-btn" onClick={handleCancel}>Cancel</button>
-            </div>
-          ) : (
-            <button className="add-btn" type="submit">Add Note</button>
-          )}
-        </div>
-      </form>
+          <FloatingLabel label="Title" controlId="floatingInput">
+            <Form.Control
+              className="mb-3"
+              type="text"
+              value={title}
+              onChange={(event) => setTitle(event.target.value)}
+              name="title"
+              placeholder="Title"
+            ></Form.Control>
+          </FloatingLabel>
+
+          {/* <textarea
+            className="note-content"
+            value={content}
+            onChange={(event) => setContent(event.target.value)}
+            name="content"
+            placeholder="note"
+            rows={10}
+            required
+          ></textarea> */}
+
+          <FloatingLabel controlId="floaoatingTextarea" label="Note">
+            <Form.Control
+            className="mb-3"
+              as={"textarea"}
+              value={content}
+              onChange={(event) => setContent(event.target.value)}
+              name="content"
+              placeholder="note"
+              style={{ height: "100px" }}
+            ></Form.Control>
+          </FloatingLabel>
+
+          {/* <div className="note-form-actions">
+            {selectedNote ? (
+              <div className="edit-buttons">
+                <button className="save-btn" type="submit">
+                  Save
+                </button>
+                <button className="cancel-btn" onClick={handleCancel}>
+                  Cancel
+                </button>
+              </div>
+            ) : (
+              <button className="add-btn" type="submit">
+                Add Note
+              </button>
+            )}
+          </div> */}
+
+                 <div className="note-form-actions ">
+            {selectedNote ? (
+              <div className="edit-buttons">
+                <Button className="me-3" variant="primary" type="submit">
+                  Save
+                </Button>
+                <Button className="cancel-btn" variant="danger" onClick={handleCancel}>
+                  Cancel
+                </Button>
+              </div>
+            ) : (
+              <Button className="add-btn" variant="primary" type="submit">
+                Add Note
+              </Button>
+            )}
+          </div>
+
+        </Form>
+      </Card>
     </div>
   );
 };
