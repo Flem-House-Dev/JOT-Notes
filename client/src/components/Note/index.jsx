@@ -1,7 +1,6 @@
-import Card from 'react-bootstrap/Card';
-import { XSquare } from 'react-bootstrap-icons';
-import '../../loginPage.css';
-
+import Card from "react-bootstrap/Card";
+import { XSquare } from "react-bootstrap-icons";
+import "../../loginPage.css";
 
 const Note = ({
   note,
@@ -44,21 +43,18 @@ const Note = ({
   // ---------------------------------------------------
 
   return (
-
     <>
-      <Card className='note-card p-2' style={{ width: "16rem", borderRadius: "10px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)" }}>
+      <Card className="note-card p-2">
         <div className="" onClick={() => handleNoteClick(note)}>
-          <div
-            className="notes-header"
-          >
+          <div className="notes-header">
             <XSquare
-             className='close-btn'
-             onClick={(event) => deleteNote(event, note._id)}
-             style={{ cursor: 'pointer', color: "#888", transition: "color 0.3s" }}/>
+              className="close-btn"
+              onClick={(event) => deleteNote(event, note._id)}
+            />
           </div>
           <Card.Body>
-            <Card.Title className='mb-2' style={{ fontWeight: "bold", fontSize: "1.25rem" }}>{note.title}</Card.Title>
-            <Card.Text style={{ fontSize: "0.9rem", color: "#555" }}>{note.content}</Card.Text>
+            <Card.Title className="note-title mb-2">{note.title}</Card.Title>
+            <Card.Text className="note-content">{note.content}</Card.Text>
             <span className="note-date">{note.date}</span>
           </Card.Body>
         </div>

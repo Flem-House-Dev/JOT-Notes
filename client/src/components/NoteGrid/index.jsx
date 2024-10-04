@@ -44,10 +44,10 @@ const NoteGrid = ({
   // ---------------------------------------------------
 
   return (
-    <Container className="w-75 m-auto">
+    <Container fluid className="w-75 m-auto">
       <Row>
         {notes.map((n) => (
-          <Col className="flex-grow-0" key={n._id} xs={12} md={6} lg={4}>
+          <Col className="flex-grow-0" key={n._id} xs={12} md={6} lg={3}>
             <div className="mb-4 d-flex justify-content-start">
               <Note
                 note={n}

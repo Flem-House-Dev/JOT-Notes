@@ -19,7 +19,6 @@ const NoteForm = ({
   const [loading, setLoading] = useState(false); // State for loading indicator
   const [message, setMessage] = useState(null); // State for success message
 
-
   const handleAddNote = async (event) => {
     setLoading(true); // Set loading state before API call
     event.preventDefault();
@@ -104,61 +103,63 @@ const NoteForm = ({
   // ---------------------------------------------------
 
   return (
-    <div className="note-form-container" >
-      <Card className="p-3 w-50" style={{ borderRadius: "10px", boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)" }}>
+    <div className="note-form-container d-flex justify-content-center align-items-center mb-5">
+      <Card className="note-form-card p-3 ">
         <Form
-          // className="note-form"
           onSubmit={(event) => {
             event.preventDefault();
             selectedNote ? handleUpdateNote(event) : handleAddNote(event);
           }}
         >
-
-          {loading && <Spinner animation="border" />} {/* Conditionally render loading spinner */}
+          {loading && <Spinner animation="border" />}{" "}
+          {/* Conditionally render loading spinner */}
           {/* {message && <Alert variant="success">{message}</Alert>} */}
-           {/* Conditionally render success message */}
-
+          {/* Conditionally render success message */}
           <FloatingLabel label="Title" controlId="floatingInput">
             <Form.Control
-              className="mb-3"
+              className="note-form-title mb-3"
               type="text"
               value={title}
               onChange={(event) => setTitle(event.target.value)}
               name="title"
               placeholder="Title"
-              style={{ borderRadius: "5px" }}
-            ></Form.Control>
+            />
           </FloatingLabel>
-
-          <FloatingLabel controlId="floaoatingTextarea" label="Note">
+          <FloatingLabel controlId="floatingTextarea" label="Note">
             <Form.Control
-              className="mb-3"
-              as={"textarea"}
+              className="note-form-content mb-3"
+              as="textarea"
               value={content}
               onChange={(event) => setContent(event.target.value)}
               name="content"
               placeholder="note"
-              style={{ height: "100px", borderRadius: "5px" }}
-            ></Form.Control>
+              style={{ height: '100px' }} // Set the height of the textarea
+            />
           </FloatingLabel>
-
           <div className="note-form-actions d-flex justify-content-end ">
             {selectedNote ? (
               <div className="edit-buttons">
-                <Button className="me-3" variant="primary" type="submit" style={{ borderRadius: "5px" }}>
+                <Button
+                  className="save-btn me-3"
+                  variant="primary"
+                  type="submit"
+                >
                   Save
                 </Button>
-                <Button className="cancel-btn" variant="danger" onClick={handleCancel} style={{ borderRadius: "5px" }}>
+                <Button
+                  className="cancel-btn"
+                  variant="danger"
+                  onClick={handleCancel}
+                >
                   Cancel
                 </Button>
               </div>
             ) : (
-              <Button className="add-btn" variant="primary" type="submit" style={{ borderRadius: "5px" }}>
+              <Button className="add-btn" variant="primary" type="submit">
                 Add Note
               </Button>
             )}
           </div>
-
         </Form>
       </Card>
     </div>
