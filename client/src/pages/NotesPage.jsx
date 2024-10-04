@@ -5,6 +5,8 @@ import NoteGrid from "../components/NoteGrid";
 import AuthContext from "../context/AuthContext";
 import "../App.css";
 
+import Button from "react-bootstrap/Button";
+
 const NotesPage = () => {
   const [notes, setNotes] = useState([]);
   const [title, setTitle] = useState("");
@@ -20,13 +22,12 @@ const NotesPage = () => {
   };
 
   return (
-    <>
-      <div className="notes-page-header">
-        <h1>Your Notes</h1>
-        {/* Add a logout button */}
-        <button onClick={handleLogout} className="logout-button">
+    <div className="p-4 bg-light min-vh-100">
+      <div className="notes-page-header d-flex justify-content-between align-items-center mb-4">
+        <h1 className="text-primary">JOT Notes</h1>
+        <Button className="btn" variant="outline-secondary" onClick={handleLogout}>
           Logout
-        </button>
+        </Button>
       </div>
       <NoteForm
         title={title}
@@ -40,13 +41,14 @@ const NotesPage = () => {
       />
 
       <NoteGrid
+        // className="note-grid"
         notes={notes}
         setNotes={setNotes}
         setSelectedNote={setSelectedNote}
         setTitle={setTitle}
         setContent={setContent}
       />
-    </>
+    </div>
   );
 };
 

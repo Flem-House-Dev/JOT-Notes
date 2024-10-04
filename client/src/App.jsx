@@ -12,6 +12,7 @@ import NotesPage from "./pages/NotesPage";
 import AuthContext, { AuthProvider } from "./context/AuthContext";
 
 import "./App.css";
+import "./loginPage.css";
 
 function App() {
   return (
@@ -28,14 +29,23 @@ function AppContent() {
 
   return (
     <Routes>
-      <Route path="/" element={isAuthenticated ? <Navigate to="/notes" /> : <Navigate to="/login" />} />
-      <Route path="/login" element={ isAuthenticated ? <Navigate to="/notes" /> : <LoginPage />} />
-      <Route path="/register" element={ isAuthenticated ? <Navigate to="/notes" /> : <RegisterPage />} />
+      <Route
+        path="/"
+        element={
+          isAuthenticated ? <Navigate to="/notes" /> : <Navigate to="/login" />
+        }
+      />
+      <Route
+        path="/login"
+        element={isAuthenticated ? <Navigate to="/notes" /> : <LoginPage />}
+      />
+      <Route
+        path="/register"
+        element={isAuthenticated ? <Navigate to="/notes" /> : <RegisterPage />}
+      />
       <Route
         path="/notes"
-        element={
-          isAuthenticated ? <NotesPage /> : <Navigate to="/login" />
-        }
+        element={isAuthenticated ? <NotesPage /> : <Navigate to="/login" />}
       />
     </Routes>
   );

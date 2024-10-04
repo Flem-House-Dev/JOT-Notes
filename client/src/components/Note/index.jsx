@@ -1,3 +1,7 @@
+import Card from "react-bootstrap/Card";
+import { XSquare } from "react-bootstrap-icons";
+// import "../../loginPage.css";
+
 const Note = ({
   note,
   notes,
@@ -6,7 +10,6 @@ const Note = ({
   setContent,
   setNotes,
 }) => {
-
   // ---------------------------------------------------
 
   const handleNoteClick = (note) => {
@@ -25,8 +28,8 @@ const Note = ({
       await fetch(`/api/notes/${noteId}`, {
         method: "DELETE",
         headers: {
-          Authorization: 'Bearer ' + token,
-        }
+          Authorization: "Bearer " + token,
+        },
       });
 
       const updatedNotes = notes.filter((note) => note._id !== noteId);
@@ -41,20 +44,21 @@ const Note = ({
 
   return (
     <>
-      <div
-        className="note-item"
-        // key={note._id}
-        onClick={() => handleNoteClick(note)}
-      >
-        <div
-          className="notes-header"
-          onClick={(event) => deleteNote(event, note._id)}
-        >
-          <button>x</button>
+      <Card className="note-card p-2">
+        <div className="" onClick={() => handleNoteClick(note)}>
+          <div className="notes-header">
+            <XSquare
+              className="close-btn"
+              onClick={(event) => deleteNote(event, note._id)}
+            />
+          </div>
+          <Card.Body>
+            <Card.Title className="note-title mb-2">{note.title}</Card.Title>
+            <Card.Text className="note-content">{note.content}</Card.Text>
+            <span className="note-date">{note.date}</span>
+          </Card.Body>
         </div>
-        <h2>{note.title}</h2>
-        <p>{note.content}</p>
-      </div>
+      </Card>
     </>
   );
 };
