@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
-import "../LoginPage.css";
+// import "../LoginPage.css";
 import logo from "../assets/note-and-pencil.png";
 import { Form, Button, Container, Card } from "react-bootstrap";
 

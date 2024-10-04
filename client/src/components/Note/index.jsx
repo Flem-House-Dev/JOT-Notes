@@ -1,6 +1,6 @@
 import Card from "react-bootstrap/Card";
 import { XSquare } from "react-bootstrap-icons";
-import "../../loginPage.css";
+// import "../../loginPage.css";
 
 const Note = ({
   note,

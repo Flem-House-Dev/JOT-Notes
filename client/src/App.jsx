@@ -12,6 +12,7 @@ import NotesPage from "./pages/NotesPage";
 import AuthContext, { AuthProvider } from "./context/AuthContext";
 
 import "./App.css";
+import "./loginPage.css";
 
 function App() {
   return (
