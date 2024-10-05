@@ -5,8 +5,13 @@ const Header = ({ handleLogout }) => {
   return (
     <header className="border">
       <div className="notes-page-header d-flex justify-content-between align-items-center mb-4">
-        <div className="d-flex justify-content-around align-items-end" >
-          <img src={logo} className="logo-xsmall me-2" style={{ height: "64px"}} alt="note and pencil logo" />
+        <div className="d-flex justify-content-around align-items-end">
+          <img
+            src={logo}
+            className="logo-xsmall me-2"
+            style={{ height: "64px" }}
+            alt="note and pencil logo"
+          />
           <h1 className=" text-primary ">JOT Notes</h1>
         </div>
         <Button

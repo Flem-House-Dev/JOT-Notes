@@ -24,12 +24,6 @@ const NotesPage = () => {
 
   return (
     <div className="p-4 bg-light min-vh-100">
-      {/* <div className="notes-page-header d-flex justify-content-between align-items-center mb-4">
-        <h1 className="text-primary">JOT Notes</h1>
-        <Button className="btn" variant="outline-secondary" onClick={handleLogout}>
-          Logout
-        </Button>
-      </div> */}
       <Header handleLogout={handleLogout} />
       <NoteForm
         title={title}
