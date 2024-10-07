@@ -5,6 +5,10 @@ body {
   background-color: #f5f5f5;
 }
 
+.offcanvas {
+ width: 200px;
+}
+
 /* Login/ Register pages */
 .login-page,
 .register-page {
