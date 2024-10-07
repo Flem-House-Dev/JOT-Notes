@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import { jwtDecode } from "jwt-decode";
 
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
@@ -12,8 +13,21 @@ const SettingsModal = ({ showModal, handleCloseModal }) => {
   const [isEditingEmail, setIsEditingEmail] = useState(false);
   const [username, setUsername] = useState("currentUsername");
   const [email, setEmail] = useState("currentEmail");
-  const [showPassordFom, setShowPasswordForm] = useState(false);
+  const [showPasswordForm, setShowPasswordForm] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+
+  const usernameInputRef = useRef(null);
+  const emailInputRef = useRef(null);
+
+  // get user data from token
+  useEffect(() => {
+    const token = localStorage.getItem("userToken");
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      setUsername(decodedToken.username);
+      setEmail(decodedToken.email);
+    }
+  }, [showModal]);
 
   const renderMenu = () => {
     switch (currentMenu) {
@@ -35,20 +49,40 @@ const SettingsModal = ({ showModal, handleCloseModal }) => {
                     <Form.Control
                       type="text"
                       value={username}
+                      ref={usernameInputRef}
                       onChange={(e) => setUsername(e.target.value)}
                     />
                     <Button
                       variant="outline-secondary"
                       onClick={() => setIsEditingUserName(false)}
                       className="ms-2"
-                    />
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      variant="secondary"
+                      onClick={() => setIsEditingUserName(false)}
+                      className="ms-2"
+                    >
+                      Save
+                    </Button>
                   </div>
                 ) : (
                   <div className="d-flex justify-content-between">
-                    <span>{username}</span>
+                    <Form.Control
+                      type="text"
+                      value={username}
+                      ref={usernameInputRef}
+                      readOnly
+                    />
                     <Button
                       variant="outline-secondary"
-                      onClick={() => setIsEditingUserName(true)}
+                      onClick={() => {
+                        setIsEditingUserName(true);
+                        if (usernameInputRef.current) {
+                          usernameInputRef.current.focus();
+                        }
+                      }}
                     >
                       Edit
                     </Button>
@@ -64,10 +98,18 @@ const SettingsModal = ({ showModal, handleCloseModal }) => {
                     <Form.Control
                       type="email"
                       value={email}
-                      onAbort={(e) => setEmail(e.target.value)}
+                      ref={emailInputRef}
+                      onChange={(e) => setEmail(e.target.value)}
                     />
                     <Button
                       variant="outline-secondary"
+                      onClick={() => setIsEditingEmail(false)}
+                      className="ms-2"
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      variant="secondary"
                       onClick={() => setIsEditingEmail(false)}
                       className="ms-2"
                     >
@@ -76,10 +118,20 @@ const SettingsModal = ({ showModal, handleCloseModal }) => {
                   </div>
                 ) : (
                   <div className="d-flex justify-content-between">
-                    <span>{email}</span>
+                    <Form.Control
+                      type="emai"
+                      value={email}
+                      ref={emailInputRef}
+                      readOnly
+                    />
                     <Button
-                      variant="outline-primary"
-                      onClick={() => setIsEditingEmail(true)}
+                      variant="outline-secondary"
+                      onClick={() => {
+                        setIsEditingEmail(true);
+                        if (emailInputRef.current) {
+                          emailInputRef.current.focus();
+                        }
+                      }}
                     >
                       Edit
                     </Button>
@@ -91,13 +143,13 @@ const SettingsModal = ({ showModal, handleCloseModal }) => {
               <Form.Group className="mt-4">
                 <Button
                   variant="warning"
-                  onClick={() => setShowPasswordForm(!showPassordFom)}
+                  onClick={() => setShowPasswordForm(!showPasswordForm)}
                 >
                   Change Password
                 </Button>
 
                 {/* Password Change Form (Toggleable) */}
-                {showPassordFom && (
+                {showPasswordForm && (
                   <div className="mt-3">
                     <Form.Group>
                       <Form.Label>Current Password</Form.Label>
