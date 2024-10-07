@@ -3,16 +3,32 @@ import { useNavigate } from "react-router-dom";
 import NoteForm from "../components/NoteForm";
 import NoteGrid from "../components/NoteGrid";
 import AuthContext from "../context/AuthContext";
+import SettingsModal from "../components/SettingsModal/SettingsModal";
+
 import "../App.css";
 
 import Button from "react-bootstrap/Button";
 import Header from "../components/Header";
+import SideMenu from "../components/sideMenu";
 
 const NotesPage = () => {
   const [notes, setNotes] = useState([]);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [selectedNote, setSelectedNote] = useState("");
+
+  // side menu state
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  // modal state
+  const [showModal, setShowModal] = useState(false);
+  const handleCloseModal = () => setShowModal(false);
+  const handleShowModal = () => {
+    setShowModal(true);
+    handleClose();
+  };
 
   const { logout } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -24,7 +40,14 @@ const NotesPage = () => {
 
   return (
     <div className="p-4 bg-light min-vh-100">
-      <Header handleLogout={handleLogout} />
+      <Header handleShow={handleShow} />
+      <SideMenu
+        show={show}
+        handleShowModal={handleShowModal}
+        handleClose={handleClose}
+        handleShow={handleShow}
+        handleLogout={handleLogout}
+      />
       <NoteForm
         title={title}
         notes={notes}
@@ -43,6 +66,10 @@ const NotesPage = () => {
         setSelectedNote={setSelectedNote}
         setTitle={setTitle}
         setContent={setContent}
+      />
+      <SettingsModal
+        handleCloseModal={handleCloseModal}
+        showModal={showModal}
       />
     </div>
   );
