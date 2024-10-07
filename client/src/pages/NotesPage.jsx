@@ -1,15 +1,15 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import NoteForm from "../components/NoteForm";
-import NoteGrid from "../components/NoteGrid";
+import NoteForm from "../components/NoteForm/NoteForm";
+import NoteGrid from "../components/NoteGrid/NoteGrid";
 import AuthContext from "../context/AuthContext";
 import SettingsModal from "../components/SettingsModal/SettingsModal";
 
 import "../App.css";
 
 import Button from "react-bootstrap/Button";
-import Header from "../components/Header";
-import SideMenu from "../components/sideMenu";
+import Header from "../components/Header/Header";
+import SideMenu from "../components/SideMenu/SideMenu";
 
 const NotesPage = () => {
   const [notes, setNotes] = useState([]);

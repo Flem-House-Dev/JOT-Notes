@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from "react";
-import Note from "../Note";
+import Note from "../Note/Note";
 import AuthContext from "../../context/AuthContext";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
