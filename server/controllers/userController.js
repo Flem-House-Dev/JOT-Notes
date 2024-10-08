@@ -77,4 +77,40 @@ const getUserProfile = async (req, res) => {
   }
 };
 
-module.exports = { registerUser, loginUser, getUserProfile};
+// update username
+const updateUsername = async (req, res) => {
+  try {
+    console.log("req body:", req.body);
+    console.log("req user:", req.user);
+    console.log("req user id:", req.user._id);
+
+    const newUsername = req.body.newUsername;
+
+    const user = await User.findById(req.user._id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    user.username = newUsername;
+    await user.save();
+
+    const updateUser = {
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+      token: generateToken(user._id, user.username, user.email),
+    }
+
+    res.status(200).json(updateUser);
+
+  } catch (error) {
+    if (error.name === "ValidationError") {
+      return res.status(400).json({ message: error.message });
+    }
+    console.error("Error updating username: ", error);
+    res.status(500).json({ message: "Server error" });
+  }
+}
+
+
+module.exports = { registerUser, loginUser, getUserProfile, updateUsername };

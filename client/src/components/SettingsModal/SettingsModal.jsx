@@ -30,6 +30,35 @@ const SettingsModal = ({ showModal, handleCloseModal }) => {
     }
   }, [showModal]);
 
+  // update username and email
+
+  // update username
+  const handleUpdateUsername = async () => {
+    try {
+      // get user token userID
+
+      const token = localStorage.getItem("userToken");
+      const decodedToken = jwtDecode(token);
+      const userId = decodedToken.userId;
+      const newUsername = username;
+     
+      const response = await fetch("/api/user/userName", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+        },
+        body: JSON.stringify({ newUsername, userId }), 
+      });
+
+      const updatedUser = await response.json();
+      localStorage.setItem("userToken", updatedUser.token);
+      setUsername(updatedUser.username);
+    } catch (error) {
+      console.error("Unable to update username", error);
+    }
+  };
+
   const renderMenu = () => {
     switch (currentMenu) {
       case "profile":
@@ -55,9 +84,13 @@ const SettingsModal = ({ showModal, handleCloseModal }) => {
                       onChange={(e) => setUsername(e.target.value)}
                     />
                     <div className="d-flex justify-content-end">
+                      {/* ToDo: show text confirmation of username change */}
                       <Button
                         variant="secondary"
-                        onClick={() => setIsEditingUserName(false)}
+                        onClick={() => {
+                          handleUpdateUsername();
+                          setIsEditingUserName(false);
+                        }}
                         className="ms-2"
                       >
                         Save
@@ -159,14 +192,11 @@ const SettingsModal = ({ showModal, handleCloseModal }) => {
                   onClick={() => {
                     setCurrentMenu("password");
                     // setShowPasswordForm(true);
-
                   }}
                   style={{ width: "160px" }}
                 >
                   Change Password
                 </Button>
-
-              
               </Form.Group>
 
               {/* Delete Account Section */}
@@ -208,60 +238,55 @@ const SettingsModal = ({ showModal, handleCloseModal }) => {
           </div>
         );
 
-        case "password":
-          return (
-            <>
-              {/* Password Change Form (Toggleable) */}
+      case "password":
+        return (
+          <>
+            {/* Password Change Form (Toggleable) */}
             <h5>Change Password</h5>
-                  <div className="mt-3">
-                    <Form.Group>
-                      <Form.Label>Current Password</Form.Label>
-                      <Form.Control
-                        type="password"
-                        placeholder="Enter Current Password"
-                      />
-                    </Form.Group>
-                    <Form.Group className="mt-2">
-                      <Form.Label>New Password</Form.Label>
-                      <Form.Control
-                        type="password"
-                        placeholder="Enter New Password"
-                      />
-                    </Form.Group>
-                    <Form.Group className="mt-2">
-                      <Form.Label>Confirm New Password</Form.Label>
-                      <Form.Control
-                        type="password"
-                        placeholder="Confirm Password"
-                      />
-                    </Form.Group>
-                    <div className="d-flex">
-                      <Button
-                        variant="outline-secondary"
-                        onClick={() => setCurrentMenu("profile")}
-                        style={{ width: "160px" }}
-                        className="mt-4 me-4"
-                      >
-                        Cancel
-                      </Button>
-                      <Button
-                        variant="secondary"
-                        className="mt-4"
-                        style={{ width: "160px" }}
-                      >
-                        Update Password
-                      </Button>
-                    </div>
-                  </div>
-                
-            </>
-          );
+            <div className="mt-3">
+              <Form.Group>
+                <Form.Label>Current Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  placeholder="Enter Current Password"
+                />
+              </Form.Group>
+              <Form.Group className="mt-2">
+                <Form.Label>New Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  placeholder="Enter New Password"
+                />
+              </Form.Group>
+              <Form.Group className="mt-2">
+                <Form.Label>Confirm New Password</Form.Label>
+                <Form.Control type="password" placeholder="Confirm Password" />
+              </Form.Group>
+              <div className="d-flex">
+                <Button
+                  variant="outline-secondary"
+                  onClick={() => setCurrentMenu("profile")}
+                  style={{ width: "160px" }}
+                  className="mt-4 me-4"
+                >
+                  Cancel
+                </Button>
+                <Button
+                  variant="secondary"
+                  className="mt-4"
+                  style={{ width: "160px" }}
+                >
+                  Update Password
+                </Button>
+              </div>
+            </div>
+          </>
+        );
 
       case "preferences":
         return (
           <div>
             <h5>Preferences</h5>
-       
 
             <Form className="mt-3">
               <Form.Group>
@@ -301,20 +326,26 @@ const SettingsModal = ({ showModal, handleCloseModal }) => {
   };
 
   return (
-    <Modal show={showModal} onHide={()=> {
-      handleCloseModal();
-      setCurrentMenu("main");
-    }}>
+    <Modal
+      show={showModal}
+      onHide={() => {
+        handleCloseModal();
+        setCurrentMenu("main");
+      }}
+    >
       <Modal.Header closeButton>
         <Modal.Title>Settings</Modal.Title>
       </Modal.Header>
       <Modal.Body>{renderMenu()}</Modal.Body>
       <Modal.Footer>
         {currentMenu === "main" ? (
-          <Button variant="secondary" onClick={() => {
-            handleCloseModal();
-            setCurrentMenu("main");
-          }}>
+          <Button
+            variant="secondary"
+            onClick={() => {
+              handleCloseModal();
+              setCurrentMenu("main");
+            }}
+          >
             Close
           </Button>
         ) : (
