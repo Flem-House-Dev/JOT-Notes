@@ -141,21 +141,21 @@ const NoteForm = ({
               <div className="edit-buttons">
                 <Button
                   className="save-btn me-3"
-                  variant="primary"
+                  variant="secondary"
                   type="submit"
                 >
                   Save
                 </Button>
                 <Button
                   className="cancel-btn"
-                  variant="danger"
+                  variant="outline-secondary"
                   onClick={handleCancel}
                 >
                   Cancel
                 </Button>
               </div>
             ) : (
-              <Button className="add-btn" variant="primary" type="submit">
+              <Button className="add-btn" variant="secondary" type="submit">
                 Add Note
               </Button>
             )}

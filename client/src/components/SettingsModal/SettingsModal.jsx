@@ -56,18 +56,18 @@ const SettingsModal = ({ showModal, handleCloseModal }) => {
                     />
                     <div className="d-flex justify-content-end">
                       <Button
-                        variant="outline-secondary"
-                        onClick={() => setIsEditingUserName(false)}
-                        className="ms-2"
-                      >
-                        Cancel
-                      </Button>
-                      <Button
                         variant="secondary"
                         onClick={() => setIsEditingUserName(false)}
                         className="ms-2"
                       >
                         Save
+                      </Button>
+                      <Button
+                        variant="outline-secondary"
+                        onClick={() => setIsEditingUserName(false)}
+                        className="ms-2"
+                      >
+                        Cancel
                       </Button>
                     </div>
                   </>
@@ -111,18 +111,18 @@ const SettingsModal = ({ showModal, handleCloseModal }) => {
                     />
                     <div className="d-flex justify-content-end">
                       <Button
-                        variant="outline-secondary"
-                        onClick={() => setIsEditingEmail(false)}
-                        className="ms-2"
-                      >
-                        Cancel
-                      </Button>
-                      <Button
                         variant="secondary"
                         onClick={() => setIsEditingEmail(false)}
                         className="ms-2"
                       >
                         Save
+                      </Button>
+                      <Button
+                        variant="outline-secondary"
+                        onClick={() => setIsEditingEmail(false)}
+                        className="ms-2"
+                      >
+                        Cancel
                       </Button>
                     </div>
                   </>
@@ -155,7 +155,7 @@ const SettingsModal = ({ showModal, handleCloseModal }) => {
               {/* Change Password Section */}
               <Form.Group className="mt-4">
                 <Button
-                  variant="warning"
+                  variant="secondary"
                   onClick={() => {
                     setCurrentMenu("password");
                     // setShowPasswordForm(true);
