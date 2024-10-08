@@ -6,6 +6,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup";
 import Alert from "react-bootstrap/Alert";
+import { ArrowLeft } from "react-bootstrap-icons";
 
 const SettingsModal = ({ showModal, handleCloseModal }) => {
   const [currentMenu, setCurrentMenu] = useState("main");
@@ -36,57 +37,63 @@ const SettingsModal = ({ showModal, handleCloseModal }) => {
           <div>
             <h5>Account Settings</h5>
             {/* back button */}
-            <Button variant="Link" onClick={() => setCurrentMenu("main")}>
+            {/* <Button variant="Link" onClick={() => setCurrentMenu("main")}>
               &larr; Back
-            </Button>
+            </Button> */}
 
             <Form>
               {/* Username Section */}
               <Form.Group>
                 <Form.Label>Username</Form.Label>
                 {isEditingUserName ? (
-                  <div className="d-flex">
+                  <>
                     <Form.Control
+                      className="mb-2"
                       type="text"
                       value={username}
                       ref={usernameInputRef}
                       onChange={(e) => setUsername(e.target.value)}
                     />
-                    <Button
-                      variant="outline-secondary"
-                      onClick={() => setIsEditingUserName(false)}
-                      className="ms-2"
-                    >
-                      Cancel
-                    </Button>
-                    <Button
-                      variant="secondary"
-                      onClick={() => setIsEditingUserName(false)}
-                      className="ms-2"
-                    >
-                      Save
-                    </Button>
-                  </div>
+                    <div className="d-flex justify-content-end">
+                      <Button
+                        variant="outline-secondary"
+                        onClick={() => setIsEditingUserName(false)}
+                        className="ms-2"
+                      >
+                        Cancel
+                      </Button>
+                      <Button
+                        variant="secondary"
+                        onClick={() => setIsEditingUserName(false)}
+                        className="ms-2"
+                      >
+                        Save
+                      </Button>
+                    </div>
+                  </>
                 ) : (
-                  <div className="d-flex justify-content-between">
+                  <>
                     <Form.Control
+                      className="mb-2"
                       type="text"
                       value={username}
                       ref={usernameInputRef}
                       readOnly
                     />
-                    <Button
-                      variant="outline-secondary"
-                      onClick={() => {
-                        setIsEditingUserName(true);
-                        if (usernameInputRef.current) {
-                          usernameInputRef.current.focus();
-                        }
-                      }}
-                    >
-                      Edit
-                    </Button>
-                  </div>
+                    <div className="d-flex justify-content-end">
+                      <Button
+                        variant="outline-secondary"
+                        onClick={() => {
+                          setIsEditingUserName(true);
+                          if (usernameInputRef.current) {
+                            usernameInputRef.current.focus();
+                          }
+                        }}
+                      >
+                        Edit
+                      </Button>
+                    </div>
+                  </>
                 )}
               </Form.Group>
 
@@ -94,48 +101,54 @@ const SettingsModal = ({ showModal, handleCloseModal }) => {
               <Form.Group className="mt-3">
                 <Form.Label>Email</Form.Label>
                 {isEditingEmail ? (
-                  <div className="d-flex">
+                  <>
                     <Form.Control
+                      className="mb-2"
                       type="email"
                       value={email}
                       ref={emailInputRef}
                       onChange={(e) => setEmail(e.target.value)}
                     />
-                    <Button
-                      variant="outline-secondary"
-                      onClick={() => setIsEditingEmail(false)}
-                      className="ms-2"
-                    >
-                      Cancel
-                    </Button>
-                    <Button
-                      variant="secondary"
-                      onClick={() => setIsEditingEmail(false)}
-                      className="ms-2"
-                    >
-                      Save
-                    </Button>
-                  </div>
+                    <div className="d-flex justify-content-end">
+                      <Button
+                        variant="outline-secondary"
+                        onClick={() => setIsEditingEmail(false)}
+                        className="ms-2"
+                      >
+                        Cancel
+                      </Button>
+                      <Button
+                        variant="secondary"
+                        onClick={() => setIsEditingEmail(false)}
+                        className="ms-2"
+                      >
+                        Save
+                      </Button>
+                    </div>
+                  </>
                 ) : (
-                  <div className="d-flex justify-content-between">
+                  <>
                     <Form.Control
+                      className="mb-2"
                       type="emai"
                       value={email}
                       ref={emailInputRef}
                       readOnly
                     />
-                    <Button
-                      variant="outline-secondary"
-                      onClick={() => {
-                        setIsEditingEmail(true);
-                        if (emailInputRef.current) {
-                          emailInputRef.current.focus();
-                        }
-                      }}
-                    >
-                      Edit
-                    </Button>
-                  </div>
+                    <div className="d-flex justify-content-end">
+                      <Button
+                        variant="outline-secondary"
+                        onClick={() => {
+                          setIsEditingEmail(true);
+                          if (emailInputRef.current) {
+                            emailInputRef.current.focus();
+                          }
+                        }}
+                      >
+                        Edit
+                      </Button>
+                    </div>
+                  </>
                 )}
               </Form.Group>
 
@@ -143,40 +156,17 @@ const SettingsModal = ({ showModal, handleCloseModal }) => {
               <Form.Group className="mt-4">
                 <Button
                   variant="warning"
-                  onClick={() => setShowPasswordForm(!showPasswordForm)}
+                  onClick={() => {
+                    setCurrentMenu("password");
+                    // setShowPasswordForm(true);
+
+                  }}
+                  style={{ width: "160px" }}
                 >
                   Change Password
                 </Button>
 
-                {/* Password Change Form (Toggleable) */}
-                {showPasswordForm && (
-                  <div className="mt-3">
-                    <Form.Group>
-                      <Form.Label>Current Password</Form.Label>
-                      <Form.Control
-                        type="password"
-                        placeholder="Enter Current Password"
-                      />
-                    </Form.Group>
-                    <Form.Group className="mt-2">
-                      <Form.Label>New Password</Form.Label>
-                      <Form.Control
-                        type="password"
-                        placeholder="Enter New Password"
-                      />
-                    </Form.Group>
-                    <Form.Group className="mt-2">
-                      <Form.Label>Confirm New Password</Form.Label>
-                      <Form.Control
-                        type="password"
-                        placeholder="Confirm Password"
-                      />
-                    </Form.Group>
-                    <Button variant="primary" className="mt-3">
-                      Update Password
-                    </Button>
-                  </div>
-                )}
+              
               </Form.Group>
 
               {/* Delete Account Section */}
@@ -184,6 +174,7 @@ const SettingsModal = ({ showModal, handleCloseModal }) => {
                 <Button
                   variant="danger"
                   onClick={() => setShowDeleteConfirm(true)}
+                  style={{ width: "160px" }}
                 >
                   Delete Account
                 </Button>
@@ -217,14 +208,60 @@ const SettingsModal = ({ showModal, handleCloseModal }) => {
           </div>
         );
 
+        case "password":
+          return (
+            <>
+              {/* Password Change Form (Toggleable) */}
+            <h5>Change Password</h5>
+                  <div className="mt-3">
+                    <Form.Group>
+                      <Form.Label>Current Password</Form.Label>
+                      <Form.Control
+                        type="password"
+                        placeholder="Enter Current Password"
+                      />
+                    </Form.Group>
+                    <Form.Group className="mt-2">
+                      <Form.Label>New Password</Form.Label>
+                      <Form.Control
+                        type="password"
+                        placeholder="Enter New Password"
+                      />
+                    </Form.Group>
+                    <Form.Group className="mt-2">
+                      <Form.Label>Confirm New Password</Form.Label>
+                      <Form.Control
+                        type="password"
+                        placeholder="Confirm Password"
+                      />
+                    </Form.Group>
+                    <div className="d-flex">
+                      <Button
+                        variant="outline-secondary"
+                        onClick={() => setCurrentMenu("profile")}
+                        style={{ width: "160px" }}
+                        className="mt-4 me-4"
+                      >
+                        Cancel
+                      </Button>
+                      <Button
+                        variant="secondary"
+                        className="mt-4"
+                        style={{ width: "160px" }}
+                      >
+                        Update Password
+                      </Button>
+                    </div>
+                  </div>
+                
+            </>
+          );
+
       case "preferences":
         return (
           <div>
             <h5>Preferences</h5>
-            {/* Back Button */}
-            <Button variant="Link" onClick={() => setCurrentMenu("main")}>
-              &larr; Back
-            </Button>
+       
 
             <Form className="mt-3">
               <Form.Group>
@@ -264,19 +301,31 @@ const SettingsModal = ({ showModal, handleCloseModal }) => {
   };
 
   return (
-    <Modal show={showModal} onHide={handleCloseModal}>
+    <Modal show={showModal} onHide={()=> {
+      handleCloseModal();
+      setCurrentMenu("main");
+    }}>
       <Modal.Header closeButton>
         <Modal.Title>Settings</Modal.Title>
       </Modal.Header>
       <Modal.Body>{renderMenu()}</Modal.Body>
       <Modal.Footer>
         {currentMenu === "main" ? (
-          <Button variant="secondary" onClick={handleCloseModal}>
+          <Button variant="secondary" onClick={() => {
+            handleCloseModal();
+            setCurrentMenu("main");
+          }}>
             Close
           </Button>
         ) : (
-          <Button variant="primary" onClick={handleCloseModal}>
-            Save Changes
+          <Button
+            variant="Link"
+            onClick={() => {
+              setCurrentMenu("main");
+              setShowPasswordForm(false);
+            }}
+          >
+            <ArrowLeft className="mb-1" height={16} width={16} /> Back
           </Button>
         )}
       </Modal.Footer>
