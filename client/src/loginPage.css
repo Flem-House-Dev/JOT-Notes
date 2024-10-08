@@ -146,3 +146,7 @@ body {
   text-align: right;
   font-style: italic;
 }
+
+.form-switch input {
+  cursor: pointer;
+}
