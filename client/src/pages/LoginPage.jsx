@@ -46,7 +46,7 @@ const LoginPage = () => {
           className="logo-small mb-3 m-auto"
         />
         <h2 className="mb-4">Login</h2>
-        {error && <Alert className="error">{error}</Alert>}
+        {error && <Alert className="error" variant="secondary">{error}</Alert>}
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="formEmail" className="mb-4 d-flex justify-content-center">
             <Form.Control

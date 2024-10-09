@@ -14,8 +14,10 @@ const SettingsModal = ({ showModal, handleCloseModal }) => {
   const [isEditingEmail, setIsEditingEmail] = useState(false);
   const [username, setUsername] = useState("currentUsername");
   const [email, setEmail] = useState("currentEmail");
-  const [showPasswordForm, setShowPasswordForm] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+
+  const [updateUsernameAlert, setupdateUsernameAlert] = useState(null);
+  const [updateUserEmailAlert, setupdateUserEmailAlert] = useState(null);
 
   const usernameInputRef = useRef(null);
   const emailInputRef = useRef(null);
@@ -30,8 +32,6 @@ const SettingsModal = ({ showModal, handleCloseModal }) => {
     }
   }, [showModal]);
 
-  // update username and email
-
   // update username
   const handleUpdateUsername = async () => {
     try {
@@ -41,34 +41,68 @@ const SettingsModal = ({ showModal, handleCloseModal }) => {
       const decodedToken = jwtDecode(token);
       const userId = decodedToken.userId;
       const newUsername = username;
-     
+
       const response = await fetch("/api/user/userName", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("userToken")}`,
         },
-        body: JSON.stringify({ newUsername, userId }), 
+        body: JSON.stringify({ newUsername, userId }),
       });
 
       const updatedUser = await response.json();
       localStorage.setItem("userToken", updatedUser.token);
       setUsername(updatedUser.username);
+      setAlert("Username updated successfully");
     } catch (error) {
       console.error("Unable to update username", error);
+      setAlert("Error updating username");
     }
   };
+
+  // update email
+  const handleUpdateEmail = async () => {
+    try {
+      // get user token userID
+      const token = localStorage.getItem("userToken");
+      const decodedToken = jwtDecode(token);
+      const userId = decodedToken.userId;
+      const newEmail = email;
+
+      const response = await fetch("/api/user/userEmail", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+        },
+        body: JSON.stringify({ newEmail, userId }),
+      });
+
+      const updatedUser = await response.json();
+      localStorage.setItem("userToken", updatedUser.token);
+      setEmail(updatedUser.email);
+      setAlert("Email updated successfully");
+    } catch (error) {
+      console.error("Unable to update email", error);
+      setAlert("Error updating email");
+    }
+  };
+
+  const clearSettingsFormStates = () => {
+    setupdateUsernameAlert(null);
+    setupdateUserEmailAlert(null);
+    setShowDeleteConfirm(false);
+    setIsEditingEmail(false);
+    setIsEditingUserName(false);
+  } 
 
   const renderMenu = () => {
     switch (currentMenu) {
       case "profile":
         return (
-          <div>
+          <>
             <h5>Account Settings</h5>
-            {/* back button */}
-            {/* <Button variant="Link" onClick={() => setCurrentMenu("main")}>
-              &larr; Back
-            </Button> */}
 
             <Form>
               {/* Username Section */}
@@ -85,6 +119,7 @@ const SettingsModal = ({ showModal, handleCloseModal }) => {
                     />
                     <div className="d-flex justify-content-end">
                       {/* ToDo: show text confirmation of username change */}
+                  
                       <Button
                         variant="secondary"
                         onClick={() => {
@@ -114,6 +149,7 @@ const SettingsModal = ({ showModal, handleCloseModal }) => {
                       readOnly
                     />
                     <div className="d-flex justify-content-end">
+                    {updateUsernameAlert && <p className="me-3">{updateUsernameAlert}</p>}
                       <Button
                         variant="outline-secondary"
                         onClick={() => {
@@ -145,7 +181,10 @@ const SettingsModal = ({ showModal, handleCloseModal }) => {
                     <div className="d-flex justify-content-end">
                       <Button
                         variant="secondary"
-                        onClick={() => setIsEditingEmail(false)}
+                        onClick={() => {
+                          handleUpdateEmail();
+                          setIsEditingEmail(false);
+                        }}
                         className="ms-2"
                       >
                         Save
@@ -169,6 +208,7 @@ const SettingsModal = ({ showModal, handleCloseModal }) => {
                       readOnly
                     />
                     <div className="d-flex justify-content-end">
+                    {updateUserEmailAlert && <p className="me-3">{updateUserEmailAlert}</p>}
                       <Button
                         variant="outline-secondary"
                         onClick={() => {
@@ -235,7 +275,7 @@ const SettingsModal = ({ showModal, handleCloseModal }) => {
                 )}
               </Form.Group>
             </Form>
-          </div>
+          </>
         );
 
       case "password":
@@ -331,6 +371,7 @@ const SettingsModal = ({ showModal, handleCloseModal }) => {
       onHide={() => {
         handleCloseModal();
         setCurrentMenu("main");
+        clearSettingsFormStates();
       }}
     >
       <Modal.Header closeButton>
@@ -353,7 +394,7 @@ const SettingsModal = ({ showModal, handleCloseModal }) => {
             variant="Link"
             onClick={() => {
               setCurrentMenu("main");
-              setShowPasswordForm(false);
+              clearSettingsFormStates();
             }}
           >
             <ArrowLeft className="mb-1" height={16} width={16} /> Back

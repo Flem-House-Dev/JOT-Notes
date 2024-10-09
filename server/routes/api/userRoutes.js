@@ -5,12 +5,14 @@ const {
     registerUser,
     loginUser,
     getUserProfile,
-    updateUsername
+    updateUsername,
+    updateEmail
 } = require('../../controllers/userController');
 
 router.post('/register', registerUser);
 router.post('/login', loginUser);
 router.get('/profile', getUserProfile);
 router.route('/userName').put(protect, updateUsername);
+router.route('/userEmail').put(protect, updateEmail);
 
 module.exports = router;
