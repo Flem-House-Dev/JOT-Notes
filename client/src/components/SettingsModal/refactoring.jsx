@@ -5,6 +5,7 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
 import { ArrowLeft } from "react-bootstrap-icons";
+
 import AccountSettings from "./AccountSettings";
 import PasswordChange from "./PasswordChange";
 import Preferences from "./Preferences";

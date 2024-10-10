@@ -1,282 +1,47 @@
 import { useState, useRef, useEffect } from "react";
+import { useAccountSettingsForm } from "./useAccountSettingsForm";
 import { jwtDecode } from "jwt-decode";
 
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup";
-import Alert from "react-bootstrap/Alert";
 import { ArrowLeft } from "react-bootstrap-icons";
+
+// sub-components
+import AccountSettings from "./AccountSettings";
+import { getUserData, updateUsername, updateEmail } from "./userUtils";
+
 
 const SettingsModal = ({ showModal, handleCloseModal }) => {
   const [currentMenu, setCurrentMenu] = useState("main");
-  const [isEditingUserName, setIsEditingUserName] = useState(false);
-  const [isEditingEmail, setIsEditingEmail] = useState(false);
-  const [username, setUsername] = useState("currentUsername");
-  const [email, setEmail] = useState("currentEmail");
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
-  const [updateUsernameAlert, setupdateUsernameAlert] = useState(null);
-  const [updateUserEmailAlert, setupdateUserEmailAlert] = useState(null);
-
-  const usernameInputRef = useRef(null);
-  const emailInputRef = useRef(null);
+  // const [username, setUsername] = useState("currentUsername");
+  // const [email, setEmail] = useState("currentEmail");
+  const [userData, setUserData] = useState({ username: "", email: "" });
 
   // get user data from token
   useEffect(() => {
-    const token = localStorage.getItem("userToken");
-    if (token) {
-      const decodedToken = jwtDecode(token);
-      setUsername(decodedToken.username);
-      setEmail(decodedToken.email);
+    if (showModal) {
+      const data = getUserData();
+      setUserData(data);
     }
   }, [showModal]);
 
-  // update username
-  const handleUpdateUsername = async () => {
-    try {
-      // get user token userID
+  
 
-      const token = localStorage.getItem("userToken");
-      const decodedToken = jwtDecode(token);
-      const userId = decodedToken.userId;
-      const newUsername = username;
 
-      const response = await fetch("/api/user/userName", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("userToken")}`,
-        },
-        body: JSON.stringify({ newUsername, userId }),
-      });
-
-      const updatedUser = await response.json();
-      localStorage.setItem("userToken", updatedUser.token);
-      setUsername(updatedUser.username);
-      setAlert("Username updated successfully");
-    } catch (error) {
-      console.error("Unable to update username", error);
-      setAlert("Error updating username");
-    }
-  };
-
-  // update email
-  const handleUpdateEmail = async () => {
-    try {
-      // get user token userID
-      const token = localStorage.getItem("userToken");
-      const decodedToken = jwtDecode(token);
-      const userId = decodedToken.userId;
-      const newEmail = email;
-
-      const response = await fetch("/api/user/userEmail", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("userToken")}`,
-        },
-        body: JSON.stringify({ newEmail, userId }),
-      });
-
-      const updatedUser = await response.json();
-      localStorage.setItem("userToken", updatedUser.token);
-      setEmail(updatedUser.email);
-      setAlert("Email updated successfully");
-    } catch (error) {
-      console.error("Unable to update email", error);
-      setAlert("Error updating email");
-    }
-  };
-
-  const clearSettingsFormStates = () => {
-    setupdateUsernameAlert(null);
-    setupdateUserEmailAlert(null);
-    setShowDeleteConfirm(false);
-    setIsEditingEmail(false);
-    setIsEditingUserName(false);
-  } 
 
   const renderMenu = () => {
     switch (currentMenu) {
       case "profile":
-        return (
-          <>
-            <h5>Account Settings</h5>
-
-            <Form>
-              {/* Username Section */}
-              <Form.Group>
-                <Form.Label>Username</Form.Label>
-                {isEditingUserName ? (
-                  <>
-                    <Form.Control
-                      className="mb-2"
-                      type="text"
-                      value={username}
-                      ref={usernameInputRef}
-                      onChange={(e) => setUsername(e.target.value)}
-                    />
-                    <div className="d-flex justify-content-end">
-                      {/* ToDo: show text confirmation of username change */}
-                  
-                      <Button
-                        variant="secondary"
-                        onClick={() => {
-                          handleUpdateUsername();
-                          setIsEditingUserName(false);
-                        }}
-                        className="ms-2"
-                      >
-                        Save
-                      </Button>
-                      <Button
-                        variant="outline-secondary"
-                        onClick={() => setIsEditingUserName(false)}
-                        className="ms-2"
-                      >
-                        Cancel
-                      </Button>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <Form.Control
-                      className="mb-2"
-                      type="text"
-                      value={username}
-                      ref={usernameInputRef}
-                      readOnly
-                    />
-                    <div className="d-flex justify-content-end">
-                    {updateUsernameAlert && <p className="me-3">{updateUsernameAlert}</p>}
-                      <Button
-                        variant="outline-secondary"
-                        onClick={() => {
-                          setIsEditingUserName(true);
-                          if (usernameInputRef.current) {
-                            usernameInputRef.current.focus();
-                          }
-                        }}
-                      >
-                        Edit
-                      </Button>
-                    </div>
-                  </>
-                )}
-              </Form.Group>
-
-              {/* Email Section */}
-              <Form.Group className="mt-3">
-                <Form.Label>Email</Form.Label>
-                {isEditingEmail ? (
-                  <>
-                    <Form.Control
-                      className="mb-2"
-                      type="email"
-                      value={email}
-                      ref={emailInputRef}
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                    <div className="d-flex justify-content-end">
-                      <Button
-                        variant="secondary"
-                        onClick={() => {
-                          handleUpdateEmail();
-                          setIsEditingEmail(false);
-                        }}
-                        className="ms-2"
-                      >
-                        Save
-                      </Button>
-                      <Button
-                        variant="outline-secondary"
-                        onClick={() => setIsEditingEmail(false)}
-                        className="ms-2"
-                      >
-                        Cancel
-                      </Button>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <Form.Control
-                      className="mb-2"
-                      type="emai"
-                      value={email}
-                      ref={emailInputRef}
-                      readOnly
-                    />
-                    <div className="d-flex justify-content-end">
-                    {updateUserEmailAlert && <p className="me-3">{updateUserEmailAlert}</p>}
-                      <Button
-                        variant="outline-secondary"
-                        onClick={() => {
-                          setIsEditingEmail(true);
-                          if (emailInputRef.current) {
-                            emailInputRef.current.focus();
-                          }
-                        }}
-                      >
-                        Edit
-                      </Button>
-                    </div>
-                  </>
-                )}
-              </Form.Group>
-
-              {/* Change Password Section */}
-              <Form.Group className="mt-4">
-                <Button
-                  variant="secondary"
-                  onClick={() => {
-                    setCurrentMenu("password");
-                    // setShowPasswordForm(true);
-                  }}
-                  style={{ width: "160px" }}
-                >
-                  Change Password
-                </Button>
-              </Form.Group>
-
-              {/* Delete Account Section */}
-              <Form.Group className="mt-4">
-                <Button
-                  variant="danger"
-                  onClick={() => setShowDeleteConfirm(true)}
-                  style={{ width: "160px" }}
-                >
-                  Delete Account
-                </Button>
-
-                {/* Confirmation of Account Deletion */}
-                {showDeleteConfirm && (
-                  <Alert variant="danger" className="mt-3">
-                    <Alert.Heading>Are you sure?</Alert.Heading>
-                    <p>
-                      This action cannot be undone. Do you want to proceed with
-                      deleting your account?
-                    </p>
-                    <div className="d-flex justify-content-between">
-                      <Button
-                        variant="secondary"
-                        onClick={() => setShowDeleteConfirm(false)}
-                      >
-                        Cancel
-                      </Button>
-                      <Button
-                        variant="danger"
-                        onClick={() => alert("Account Deleted")}
-                      >
-                        Yes, Delete
-                      </Button>
-                    </div>
-                  </Alert>
-                )}
-              </Form.Group>
-            </Form>
-          </>
-        );
+        return <AccountSettings
+          userData={userData}
+          setUserData={setUserData}
+          onPasswordChange={() => setCurrentMenu("password")}
+          updateUsername={updateUsername}
+          updateEmail={updateEmail}
+        />;
 
       case "password":
         return (
