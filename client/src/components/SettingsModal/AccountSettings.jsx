@@ -11,17 +11,26 @@ const AccountSettings = ({
   updateUsername,
   updateEmail,
 }) => {
-  
-  
-  
-  
-  
+  const [updateUsernameAlert, setupdateUsernameAlert] = useState(null);
+  const [updateUserEmailAlert, setupdateUserEmailAlert] = useState(null);
+  const [isEditingUserName, setIsEditingUserName] = useState(false);
+  const [username, setUsername] = useState(userData.username);
+  const [isEditingEmail, setIsEditingEmail] = useState(false);
+  const [email, setEmail] = useState(userData.email);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+
+  const clearSettingsFormStates = () => {
+    setIsEditingUserName(false);
+    setIsEditingEmail(false);
+    setShowDeleteConfirm(false);
+  };
+
   const usernameInputRef = useRef(null);
   const emailInputRef = useRef(null);
 
   const handleUpdateUsername = async () => {
     try {
-      await updateUsername(userData.username);
+      await updateUsername(username);
       setupdateUsernameAlert("Username updated successfully");
     } catch (error) {
       setupdateUsernameAlert("Error updating username");
@@ -30,7 +39,7 @@ const AccountSettings = ({
 
   const handleUpdateEmail = async () => {
     try {
-      await updateEmail(userData.email);
+      await updateEmail(email);
       setupdateUserEmailAlert("Email updated successfully");
     } catch (error) {
       setupdateUserEmailAlert("Error updating email");
@@ -44,6 +53,7 @@ const AccountSettings = ({
       <Form>
         {/* Username Section */}
         <Form.Group>
+
           <Form.Label>Username</Form.Label>
           {isEditingUserName ? (
             <>
@@ -52,11 +62,11 @@ const AccountSettings = ({
                 type="text"
                 value={username}
                 ref={usernameInputRef}
-                onChange={(e) => setUsername(e.target.value)}
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                }}
               />
               <div className="d-flex justify-content-end">
-                {/* ToDo: show text confirmation of username change */}
-
                 <Button
                   variant="secondary"
                   onClick={() => {
@@ -69,7 +79,9 @@ const AccountSettings = ({
                 </Button>
                 <Button
                   variant="outline-secondary"
-                  onClick={() => setIsEditingUserName(false)}
+                  onClick={() => {
+                    setIsEditingUserName(false);
+                    setUsername(userData.username);}}
                   className="ms-2"
                 >
                   Cancel
@@ -130,7 +142,10 @@ const AccountSettings = ({
                 </Button>
                 <Button
                   variant="outline-secondary"
-                  onClick={() => setIsEditingEmail(false)}
+                  onClick={() => {
+                    setIsEditingEmail(false);
+                    setEmail(userData.email);
+                  }}
                   className="ms-2"
                 >
                   Cancel
@@ -141,7 +156,7 @@ const AccountSettings = ({
             <>
               <Form.Control
                 className="mb-2"
-                type="emai"
+                type="email"
                 value={email}
                 ref={emailInputRef}
                 readOnly
@@ -171,8 +186,9 @@ const AccountSettings = ({
           <Button
             variant="secondary"
             onClick={() => {
-              setCurrentMenu("password");
-              // setShowPasswordForm(true);
+              clearSettingsFormStates();
+              //   setCurrentMenu("password");
+              onPasswordChange();
             }}
             style={{ width: "160px" }}
           >

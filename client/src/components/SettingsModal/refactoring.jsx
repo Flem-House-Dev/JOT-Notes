@@ -9,7 +9,7 @@ import { ArrowLeft } from "react-bootstrap-icons";
 import AccountSettings from "./AccountSettings";
 import PasswordChange from "./PasswordChange";
 import Preferences from "./Preferences";
-import { getUserData, updateUsername, updateEmail } from "./userUtils";
+import { getUserData, updateUsername, updateEmail } from "./utils/userUtils";
 
 const SettingsModal = ({ showModal, handleCloseModal }) => {
   const [currentMenu, setCurrentMenu] = useState("main");
@@ -84,7 +84,8 @@ const SettingsModal = ({ showModal, handleCloseModal }) => {
   );
 };
 
-export default SettingsModal;
+// export default SettingsModal;
+// ------------------------------------------------------------
 
 // AccountSettings.jsx
 import React, { useState } from "react";
@@ -123,7 +124,8 @@ const AccountSettings = ({ userData, setUserData, onPasswordChange, updateUserna
 
 };
 
-export default AccountSettings;
+// export default AccountSettings;
+// ------------------------------------------------------------
 
 // PasswordChange.jsx
 import React from "react";
@@ -135,7 +137,8 @@ const PasswordChange = ({ onCancel }) => {
   // ...
 };
 
-export default PasswordChange;
+// export default PasswordChange;
+// ------------------------------------------------------------
 
 // Preferences.jsx
 import React from "react";
@@ -146,7 +149,8 @@ const Preferences = () => {
   // ...
 };
 
-export default Preferences;
+// export default Preferences;
+// ------------------------------------------------------------
 
 // userUtils.js
 import { jwtDecode } from "jwt-decode";

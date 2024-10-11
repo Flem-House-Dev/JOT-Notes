@@ -80,9 +80,6 @@ const getUserProfile = async (req, res) => {
 // update username
 const updateUsername = async (req, res) => {
   try {
-    console.log("req body:", req.body);
-    console.log("req user:", req.user);
-    console.log("req user id:", req.user._id);
 
     const newUsername = req.body.newUsername;
 

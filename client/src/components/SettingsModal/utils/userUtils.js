@@ -13,7 +13,7 @@ const getUserData = () => {
 };
 
 // update username
-const updateUsername = async () => {
+const updateUsername = async (username) => {
     try {
       // get user token userID
 

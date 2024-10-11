@@ -4,12 +4,12 @@ const useAccountSettingsForm = () => {
   const [isEditingUserName, setIsEditingUserName] = useState(false);
   const [isEditingEmail, setIsEditingEmail] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
-  const [updateUsernameAlert, setupdateUsernameAlert] = useState(null);
-  const [updateUserEmailAlert, setupdateUserEmailAlert] = useState(null);
+  const [updateUsernameAlert, setUpdateUsernameAlert] = useState(null);
+  const [updateUserEmailAlert, setUpdateUserEmailAlert] = useState(null);
 
   const clearSettingsFormStates = useCallback( () => {
-    setupdateUsernameAlert(null);
-    setupdateUserEmailAlert(null);
+    setUpdateUsernameAlert(null);
+    setUpdateUserEmailAlert(null);
     setShowDeleteConfirm(false);
     setIsEditingEmail(false);
     setIsEditingUserName(false);
@@ -24,9 +24,9 @@ const useAccountSettingsForm = () => {
     showDeleteConfirm,
     setShowDeleteConfirm,
     updateUsernameAlert,
-    setupdateUsernameAlert,
+    setUpdateUsernameAlert,
     updateUserEmailAlert,
-    setupdateUserEmailAlert,
+    setUpdateUserEmailAlert,
     clearSettingsFormStates,
   });
 };
