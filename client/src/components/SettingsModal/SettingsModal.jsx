@@ -12,7 +12,7 @@ import { ArrowLeft } from "react-bootstrap-icons";
 import AccountSettings from "./AccountSettings";
 import PasswordChange from "./PasswordChange";
 import Preferences from "./Preferences";
-import { getUserData, updateUsername, updateEmail } from "./utils/userUtils";
+import { getUserData } from "./utils/userUtils";
 
 const SettingsModal = ({ showModal, handleCloseModal }) => {
   const [currentMenu, setCurrentMenu] = useState("main");
@@ -37,8 +37,8 @@ const SettingsModal = ({ showModal, handleCloseModal }) => {
           setUserData={setUserData}
           onPasswordChange={() => setCurrentMenu("password")}
        
-          updateUsername={updateUsername}
-          updateEmail={updateEmail}
+          // updateUsername={updateUsername}
+          // updateEmail={updateEmail}
         />;
 
       case "password":

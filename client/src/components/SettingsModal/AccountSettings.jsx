@@ -4,12 +4,13 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 
+import { updateUsername, updateEmail } from "./utils/userUtils";
+import AcctSetInputForm from "./AccountSettingsComponents/AcctSetInputForms";
+
 const AccountSettings = ({
   userData,
   setUserData,
   onPasswordChange,
-  updateUsername,
-  updateEmail,
 }) => {
   const [updateUsernameAlert, setupdateUsernameAlert] = useState(null);
   const [updateUserEmailAlert, setupdateUserEmailAlert] = useState(null);
@@ -52,7 +53,21 @@ const AccountSettings = ({
 
       <Form>
         {/* Username Section */}
-        <Form.Group>
+
+        <AcctSetInputForm 
+        isEditing={isEditingUserName}
+        setIsEditing={setIsEditingUserName}
+        inputValue={username}
+        setInputValue={setUsername}
+        inputRef={usernameInputRef}
+        handleUpdate={handleUpdateUsername}
+        userData={userData}
+        updateAlert={updateUsernameAlert}
+        clearSettingsFormStates={clearSettingsFormStates}
+        label="Username"
+
+        />
+        {/* <Form.Group>
 
           <Form.Label>Username</Form.Label>
           {isEditingUserName ? (
@@ -115,10 +130,24 @@ const AccountSettings = ({
               </div>
             </>
           )}
-        </Form.Group>
+        </Form.Group> */}
 
         {/* Email Section */}
-        <Form.Group className="mt-3">
+        <AcctSetInputForm
+        isEditing={isEditingEmail}
+        setIsEditing={setIsEditingEmail}
+        inputValue={email}
+        setInputValue={setEmail}
+        inputRef={emailInputRef}
+        handleUpdate={handleUpdateEmail}
+        userData={userData}
+        updateAlert={updateUserEmailAlert}
+        clearSettingsFormStates={clearSettingsFormStates}
+        label="Email"
+        
+        />
+
+        {/* <Form.Group className="mt-3">
           <Form.Label>Email</Form.Label>
           {isEditingEmail ? (
             <>
@@ -179,7 +208,7 @@ const AccountSettings = ({
               </div>
             </>
           )}
-        </Form.Group>
+        </Form.Group> */}
 
         {/* Change Password Section */}
         <Form.Group className="mt-4">
