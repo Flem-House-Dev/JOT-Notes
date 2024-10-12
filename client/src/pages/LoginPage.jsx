@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
-// import "../LoginPage.css";
 import logo from "../assets/note-and-pencil.png";
 import { Button, Form, Container, Card, Alert } from "react-bootstrap";
 
@@ -46,7 +45,7 @@ const LoginPage = () => {
           className="logo-small mb-3 m-auto"
         />
         <h2 className="mb-4">Login</h2>
-        {error && <Alert className="error">{error}</Alert>}
+        {error && <Alert className="error" variant="secondary">{error}</Alert>}
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="formEmail" className="mb-4 d-flex justify-content-center">
             <Form.Control

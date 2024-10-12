@@ -4,7 +4,6 @@ import Button from "react-bootstrap/Button";
 import { Gear } from "react-bootstrap-icons";
 import Image from "react-bootstrap/Image";
 import { BoxArrowLeft } from "react-bootstrap-icons";
-import ArrowLeft from "react-bootstrap-icons/dist/icons/arrow-left";
 
 const SideMenu = ({ show, handleClose, handleShowModal, handleLogout }) => {
   return (
