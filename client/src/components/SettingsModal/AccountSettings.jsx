@@ -7,11 +7,7 @@ import Alert from "react-bootstrap/Alert";
 import { updateUsername, updateEmail } from "./utils/userUtils";
 import AcctSetInputForm from "./AccountSettingsComponents/AcctSetInputForms";
 
-const AccountSettings = ({
-  userData,
-  setUserData,
-  onPasswordChange,
-}) => {
+const AccountSettings = ({ userData, setUserData, onPasswordChange }) => {
   const [updateUsernameAlert, setupdateUsernameAlert] = useState(null);
   const [updateUserEmailAlert, setupdateUserEmailAlert] = useState(null);
   const [isEditingUserName, setIsEditingUserName] = useState(false);
@@ -54,161 +50,33 @@ const AccountSettings = ({
       <Form>
         {/* Username Section */}
 
-        <AcctSetInputForm 
-        isEditing={isEditingUserName}
-        setIsEditing={setIsEditingUserName}
-        inputValue={username}
-        setInputValue={setUsername}
-        inputRef={usernameInputRef}
-        handleUpdate={handleUpdateUsername}
-        userData={userData}
-        updateAlert={updateUsernameAlert}
-        clearSettingsFormStates={clearSettingsFormStates}
-        label="Username"
-
+        <AcctSetInputForm
+          isEditing={isEditingUserName}
+          setIsEditing={setIsEditingUserName}
+          inputValue={username}
+          setInputValue={setUsername}
+          inputRef={usernameInputRef}
+          handleUpdate={handleUpdateUsername}
+          userData={userData}
+          updateAlert={updateUsernameAlert}
+          setUpdateAlert={setupdateUsernameAlert}
+          clearSettingsFormStates={clearSettingsFormStates}
+          label="Username"
         />
-        {/* <Form.Group>
-
-          <Form.Label>Username</Form.Label>
-          {isEditingUserName ? (
-            <>
-              <Form.Control
-                className="mb-2"
-                type="text"
-                value={username}
-                ref={usernameInputRef}
-                onChange={(e) => {
-                  setUsername(e.target.value);
-                }}
-              />
-              <div className="d-flex justify-content-end">
-                <Button
-                  variant="secondary"
-                  onClick={() => {
-                    handleUpdateUsername();
-                    setIsEditingUserName(false);
-                  }}
-                  className="ms-2"
-                >
-                  Save
-                </Button>
-                <Button
-                  variant="outline-secondary"
-                  onClick={() => {
-                    setIsEditingUserName(false);
-                    setUsername(userData.username);}}
-                  className="ms-2"
-                >
-                  Cancel
-                </Button>
-              </div>
-            </>
-          ) : (
-            <>
-              <Form.Control
-                className="mb-2"
-                type="text"
-                value={username}
-                ref={usernameInputRef}
-                readOnly
-              />
-              <div className="d-flex justify-content-end">
-                {updateUsernameAlert && (
-                  <p className="me-3">{updateUsernameAlert}</p>
-                )}
-                <Button
-                  variant="outline-secondary"
-                  onClick={() => {
-                    setIsEditingUserName(true);
-                    if (usernameInputRef.current) {
-                      usernameInputRef.current.focus();
-                    }
-                  }}
-                >
-                  Edit
-                </Button>
-              </div>
-            </>
-          )}
-        </Form.Group> */}
 
         {/* Email Section */}
         <AcctSetInputForm
-        isEditing={isEditingEmail}
-        setIsEditing={setIsEditingEmail}
-        inputValue={email}
-        setInputValue={setEmail}
-        inputRef={emailInputRef}
-        handleUpdate={handleUpdateEmail}
-        userData={userData}
-        updateAlert={updateUserEmailAlert}
-        clearSettingsFormStates={clearSettingsFormStates}
-        label="Email"
-        
+          isEditing={isEditingEmail}
+          setIsEditing={setIsEditingEmail}
+          inputValue={email}
+          setInputValue={setEmail}
+          inputRef={emailInputRef}
+          handleUpdate={handleUpdateEmail}
+          userData={userData}
+          updateAlert={updateUserEmailAlert}
+          clearSettingsFormStates={clearSettingsFormStates}
+          label="Email"
         />
-
-        {/* <Form.Group className="mt-3">
-          <Form.Label>Email</Form.Label>
-          {isEditingEmail ? (
-            <>
-              <Form.Control
-                className="mb-2"
-                type="email"
-                value={email}
-                ref={emailInputRef}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <div className="d-flex justify-content-end">
-                <Button
-                  variant="secondary"
-                  onClick={() => {
-                    handleUpdateEmail();
-                    setIsEditingEmail(false);
-                  }}
-                  className="ms-2"
-                >
-                  Save
-                </Button>
-                <Button
-                  variant="outline-secondary"
-                  onClick={() => {
-                    setIsEditingEmail(false);
-                    setEmail(userData.email);
-                  }}
-                  className="ms-2"
-                >
-                  Cancel
-                </Button>
-              </div>
-            </>
-          ) : (
-            <>
-              <Form.Control
-                className="mb-2"
-                type="email"
-                value={email}
-                ref={emailInputRef}
-                readOnly
-              />
-              <div className="d-flex justify-content-end">
-                {updateUserEmailAlert && (
-                  <p className="me-3">{updateUserEmailAlert}</p>
-                )}
-                <Button
-                  variant="outline-secondary"
-                  onClick={() => {
-                    setIsEditingEmail(true);
-                    if (emailInputRef.current) {
-                      emailInputRef.current.focus();
-                    }
-                  }}
-                >
-                  Edit
-                </Button>
-              </div>
-            </>
-          )}
-        </Form.Group> */}
 
         {/* Change Password Section */}
         <Form.Group className="mt-4">
@@ -216,7 +84,6 @@ const AccountSettings = ({
             variant="secondary"
             onClick={() => {
               clearSettingsFormStates();
-              //   setCurrentMenu("password");
               onPasswordChange();
             }}
             style={{ width: "160px" }}

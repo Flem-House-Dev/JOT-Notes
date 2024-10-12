@@ -1,0 +1,10 @@
+.update-alert {
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
+    font-size: .8rem;
+    font-style: italic;
+}
+
+.update-alert.fade-out {
+    opacity: 0;
+}

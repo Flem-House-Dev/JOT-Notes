@@ -7,7 +7,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import { ArrowLeft } from "react-bootstrap-icons";
 
 import AccountSettings from "./AccountSettings";
-import PasswordChange from "./PasswordChange";
+import PasswordChange from "./AccountSettingsComponents/PasswordChange";
 import Preferences from "./Preferences";
 import { getUserData, updateUsername, updateEmail } from "./utils/userUtils";
 
