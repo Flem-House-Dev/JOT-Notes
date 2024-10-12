@@ -1,4 +1,3 @@
-import Button from "react-bootstrap/Button";
 import { List } from "react-bootstrap-icons";
 import logo from "../../assets/note-and-pencil-sm.png";
 import Image from "react-bootstrap/Image";

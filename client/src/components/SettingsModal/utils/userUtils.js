@@ -62,11 +62,8 @@ const updateUsername = async (username) => {
 
       const updatedUser = await response.json();
       localStorage.setItem("userToken", updatedUser.token);
-    //   setEmail(updatedUser.email);
-    //   setAlert("Email updated successfully");
     } catch (error) {
       console.error("Unable to update email", error);
-    //   setAlert("Error updating email");
     }
   };
 

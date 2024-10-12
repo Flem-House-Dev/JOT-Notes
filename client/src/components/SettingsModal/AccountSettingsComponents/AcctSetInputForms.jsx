@@ -53,15 +53,7 @@ const AcctSetInputForm = ({
               setInputValue(e.target.value);
             }}
           />
-          {/* <div className="d-flex justify-content-end"> */}
           <Row className="align-items-center" style={{ height:"48px" }}>
-            {/* <Col>
-              {updateAlert && (
-                <p className={`update-alert ${fadeOut ? "fade-out" : ""}`}>
-                  {updateAlert}
-                </p>
-              )}
-            </Col> */}
             <Col className="ms-auto text-end">
               <Button
                 variant="secondary"
@@ -85,7 +77,6 @@ const AcctSetInputForm = ({
               </Button>
             </Col>
           </Row>
-          {/* </div> */}
         </>
       ) : (
         <>
@@ -96,7 +87,6 @@ const AcctSetInputForm = ({
             ref={inputRef}
             readOnly
           />
-          {/* <div className="d-flex justify-content-end"> */}
           <Row className="align-items-center" style={{ height:"48px" }}>
             <Col className="col-8">
             {updateAlert && (
@@ -119,7 +109,6 @@ const AcctSetInputForm = ({
             </Button>
             </Col>
           </Row>
-          {/* </div> */}
         </>
       )}
     </Form.Group>

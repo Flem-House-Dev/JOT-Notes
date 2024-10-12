@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
 import useAccountSettingsForm from "./utils/useAccountSettingsForm";
-// import { jwtDecode } from "jwt-decode";
 
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-// import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup";
 import { ArrowLeft } from "react-bootstrap-icons";
 
@@ -18,7 +16,6 @@ const SettingsModal = ({ showModal, handleCloseModal }) => {
   const [currentMenu, setCurrentMenu] = useState("main");
 
   const [userData, setUserData] = useState({ username: "", email: "" });
-
 
   const renderMenu = () => {
     switch (currentMenu) {
