@@ -6,7 +6,8 @@ const {
     loginUser,
     getUserProfile,
     updateUsername,
-    updateEmail
+    updateEmail,
+    updatePassword,
 } = require('../../controllers/userController');
 
 router.post('/register', registerUser);
@@ -14,5 +15,6 @@ router.post('/login', loginUser);
 router.get('/profile', getUserProfile);
 router.route('/userName').put(protect, updateUsername);
 router.route('/userEmail').put(protect, updateEmail);
+router.route('/userPassword').put(protect, updatePassword);
 
 module.exports = router;

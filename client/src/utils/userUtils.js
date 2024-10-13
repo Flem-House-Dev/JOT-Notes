@@ -34,11 +34,8 @@ const updateUsername = async (username) => {
 
       const updatedUser = await response.json();
       localStorage.setItem("userToken", updatedUser.token);
-    //   setUsername(updatedUser.username);
-    //   setAlert("Username updated successfully");
     } catch (error) {
       console.error("Unable to update username", error);
-    //   setAlert("Error updating username");
     }
   };
 
@@ -67,4 +64,35 @@ const updateUsername = async (username) => {
     }
   };
 
-export { getUserData, updateUsername, updateEmail };
+  // update password
+  const updatePassword = async (currentPassword, newPassword) => {
+    try {
+      // get user token userID
+      const token = localStorage.getItem("userToken");
+      const decodedToken = jwtDecode(token);
+      const userId = decodedToken.userId;
+
+      const response = await fetch("/api/user/userPassword", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+        },
+        body: JSON.stringify({
+          currentPassword,
+          newPassword,
+          userId,
+        }),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        return { error: error.message };
+      }
+
+    } catch (error) {
+      console.error("Error changing password: ", error);
+    }
+  };
+
+export { getUserData, updateUsername, updateEmail, updatePassword };
