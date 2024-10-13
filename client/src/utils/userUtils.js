@@ -1,98 +1,79 @@
 import { jwtDecode } from "jwt-decode";
 
+const getDecodedToken = () => {
+  const token = localStorage.getItem("userToken");
+  return token ? jwtDecode(token) : null;
+};
+
 const getUserData = () => {
-    const token = localStorage.getItem("userToken");
-    if (token) {
-        const decodedToken = jwtDecode(token);
-        return {
-        username: decodedToken.username,
-        email: decodedToken.email,
-        };
+  // const token = localStorage.getItem("userToken");
+  const decodedToken = getDecodedToken();
+  return decodedToken
+    ? { username: decodedToken.username, email: decodedToken.email }
+    : { username: "", email: "" };
+};
+
+const apiRequest = async (url, method, body) => {
+  try {
+    const response = await fetch(url, {
+      method,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || "API request failed");
     }
-    return { username: "", email: "" };
+
+    return await response.json();
+  } catch (error) {
+    console.error(`Error with ${method} request to ${url}:`, error);
+    throw error;
+  }
 };
 
 // update username
 const updateUsername = async (username) => {
-    try {
-      // get user token userID
+  const decodedToken = getDecodedToken();
+  if (!decodedToken) throw new Error("User not authenticated");
 
-      const token = localStorage.getItem("userToken");
-      const decodedToken = jwtDecode(token);
+  const { userId } = decodedToken;
+  const data = await apiRequest("/api/user/userName", "PUT", {
+    username,
+    userId,
+  });
+  localStorage.setItem("userToken", data.token);
+};
 
-      const userId = decodedToken.userId;
-      const newUsername = username;
+// update email
+const updateEmail = async (email) => {
+  const decodedToken = getDecodedToken();
+  if (!decodedToken) throw new Error("User not authenticated");
 
-      const response = await fetch("/api/user/userName", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("userToken")}`,
-        },
-        body: JSON.stringify({ newUsername, userId }),
-      });
+  const { userId } = decodedToken;
+  const data = await apiRequest("/api/user/userEmail", "PUT", {
+    email,
+    userId,
+  });
+  localStorage.setItem("userToken", data.token);
+};
 
-      const updatedUser = await response.json();
-      localStorage.setItem("userToken", updatedUser.token);
-    } catch (error) {
-      console.error("Unable to update username", error);
-    }
-  };
+// update password
+const updatePassword = async (currentPassword, newPassword) => {
+  const decodedToken = getDecodedToken();
+  if (!decodedToken) throw new Error("User not authenticated");
 
-  // update email
-  const updateEmail = async () => {
-    try {
-      // get user token userID
-      const token = localStorage.getItem("userToken");
-      const decodedToken = jwtDecode(token);
-      const userId = decodedToken.userId;
-      const newEmail = email;
-
-      const response = await fetch("/api/user/userEmail", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("userToken")}`,
-        },
-        body: JSON.stringify({ newEmail, userId }),
-      });
-
-      const updatedUser = await response.json();
-      localStorage.setItem("userToken", updatedUser.token);
-    } catch (error) {
-      console.error("Unable to update email", error);
-    }
-  };
-
-  // update password
-  const updatePassword = async (currentPassword, newPassword) => {
-    try {
-      // get user token userID
-      const token = localStorage.getItem("userToken");
-      const decodedToken = jwtDecode(token);
-      const userId = decodedToken.userId;
-
-      const response = await fetch("/api/user/userPassword", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("userToken")}`,
-        },
-        body: JSON.stringify({
-          currentPassword,
-          newPassword,
-          userId,
-        }),
-      });
-
-      if (!response.ok) {
-        const error = await response.json();
-        return { error: error.message };
-      }
-
-    } catch (error) {
-      console.error("Error changing password: ", error);
-    }
-  };
+  const { userId } = decodedToken;
+  const data = await apiRequest("/api/user/userPassword", "PUT", {
+    currentPassword,
+    newPassword,
+    userId,
+  });
+  localStorage.setItem("userToken", data.token);
+};
 
 export { getUserData, updateUsername, updateEmail, updatePassword };

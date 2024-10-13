@@ -7,6 +7,7 @@ import Col from "react-bootstrap/esm/Col";
 
 import "./accountSetInputForm.css";
 
+
 const AcctSetInputForm = ({
   isEditing,
   setIsEditing,
@@ -15,20 +16,34 @@ const AcctSetInputForm = ({
   inputRef,
   handleUpdate,
   label,
-  userData,
-  updateAlert,
-  setUpdateAlert,
+  // alertMessage,
+  clearFormState,
 }) => {
+  const [alertMessage, setAlertMessage] = useState({ type: "", message: "" });
   const [fadeOut, setFadeOut] = useState(false);
 
+  const handleSave = async () => {
+    try {
+      await handleUpdate();
+      setAlertMessage({
+        type: "success",
+        message: `${label} updated successfully`,
+      });
+    } catch (error) {
+      setAlertMessage({ type: "danger", message: `Error updating ${label}` });
+    } finally {
+      setIsEditing(false);
+    }
+  };
+
   useEffect(() => {
-    if (updateAlert) {
+    if (alertMessage) {
       const fadeTimer = setTimeout(() => {
         setFadeOut(true);
       }, 3000);
 
       const removeTImer = setTimeout(() => {
-        setUpdateAlert(null);
+        setAlertMessage({ type: "", message: "" });
         setFadeOut(false);
       }, 4000);
 
@@ -37,7 +52,7 @@ const AcctSetInputForm = ({
         clearTimeout(removeTImer);
       };
     }
-  }, [updateAlert]);
+  }, [alertMessage, clearFormState]);
 
   return (
     <Form.Group>
@@ -53,14 +68,11 @@ const AcctSetInputForm = ({
               setInputValue(e.target.value);
             }}
           />
-          <Row className="align-items-center" style={{ height:"48px" }}>
+          <Row className="align-items-center" style={{ height: "48px" }}>
             <Col className="ms-auto text-end">
               <Button
                 variant="secondary"
-                onClick={() => {
-                  handleUpdate();
-                  setIsEditing(false);
-                }}
+                onClick={handleSave}
                 className="ms-2"
               >
                 Save
@@ -69,7 +81,7 @@ const AcctSetInputForm = ({
                 variant="outline-secondary"
                 onClick={() => {
                   setIsEditing(false);
-                  setInputValue(userData.username);
+                  setInputValue(inputValue?.current?.value || "");
                 }}
                 className="ms-2"
               >
@@ -87,26 +99,36 @@ const AcctSetInputForm = ({
             ref={inputRef}
             readOnly
           />
-          <Row className="align-items-center" style={{ height:"48px" }}>
+          <Row className="align-items-center" style={{ height: "48px" }}>
             <Col className="col-8">
-            {updateAlert && (
-              <p className={`me-3 update-alert ${fadeOut ? "fade-out" : ""}`}>
-                {updateAlert}
-              </p>
-            )}
+              {alertMessage.message && (
+                <p
+                  className={`me-3 update-alert ${fadeOut ? "fade-out" : ""}`}
+                  style={{
+                    color:
+                      alertMessage.type === "success"
+                        ? "green"
+                        : alertMessage.type === "danger"
+                        ? "red"
+                        : "black",
+                  }}
+                >
+                  {alertMessage.message}
+                </p>
+              )}
             </Col>
             <Col className="ms-auto text-end">
-            <Button
-              variant="outline-secondary"
-              onClick={() => {
-                setIsEditing(true);
-                if (inputRef.current) {
-                  inputRef.current.focus();
-                }
-              }}
-            >
-              Edit
-            </Button>
+              <Button
+                variant="outline-secondary"
+                onClick={() => {
+                  setIsEditing(true);
+                  if (inputRef.current) {
+                    inputRef?.current?.focus();
+                  }
+                }}
+              >
+                Edit
+              </Button>
             </Col>
           </Row>
         </>

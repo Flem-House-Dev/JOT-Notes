@@ -80,7 +80,7 @@ const getUserProfile = async (req, res) => {
 // update username
 const updateUsername = async (req, res) => {
   try {
-    const newUsername = req.body.newUsername;
+    const newUsername = req.body.username;
 
     const user = await User.findById(req.user._id);
     if (!user) {
@@ -110,7 +110,7 @@ const updateUsername = async (req, res) => {
 // Update email
 const updateEmail = async (req, res) => {
   try {
-    const newEmail = req.body.newEmail;
+    const newEmail = req.body.email;
 
     const user = await User.findById(req.user._id);
     if (!user) {
