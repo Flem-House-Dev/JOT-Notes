@@ -7,8 +7,6 @@ import { updateUsername, updateEmail } from "../../utils/userUtils";
 import AcctSetInputForm from "./AccountSettingsComponents/AcctSetInputForms";
 
 const AccountSettings = ({ userData, setUserData, onPasswordChange }) => {
-  // const [updateUsernameAlert, setupdateUsernameAlert] = useState(null);
-  // const [updateUserEmailAlert, setupdateUserEmailAlert] = useState(null);
   const [alertMessage, setAlertMessage] = useState({ type: "", message: "" });
   const [isEditingUserName, setIsEditingUserName] = useState(false);
   const [isEditingEmail, setIsEditingEmail] = useState(false);
@@ -35,24 +33,6 @@ const AccountSettings = ({ userData, setUserData, onPasswordChange }) => {
     }
   };
 
-  // const handleUpdateUsername = async () => {
-  //   try {
-  //     await updateUsername(username);
-  //     setupdateUsernameAlert("Username updated successfully");
-  //   } catch (error) {
-  //     setupdateUsernameAlert("Error updating username");
-  //   }
-  // };
-
-  // const handleUpdateEmail = async () => {
-  //   try {
-  //     await updateEmail(email);
-  //     setupdateUserEmailAlert("Email updated successfully");
-  //   } catch (error) {
-  //     setupdateUserEmailAlert("Error updating email");
-  //   }
-  // };
-
   return (
     <>
       <h5>Account Settings</h5>
@@ -67,11 +47,6 @@ const AccountSettings = ({ userData, setUserData, onPasswordChange }) => {
           setInputValue={setUsername}
           inputRef={usernameInputRef}
           handleUpdate={() => handleUpdate("username")}
-          alertMessage={alertMessage}
-          setAlertMessage={() => setAlertMessage}
-          // userData={userData}
-          // updateAlert={updateUsernameAlert}
-          // setUpdateAlert={setupdateUsernameAlert}
           clearFormState={clearFormState}
           label="Username"
         />
@@ -85,9 +60,6 @@ const AccountSettings = ({ userData, setUserData, onPasswordChange }) => {
           inputRef={emailInputRef}
           handleUpdate={() => handleUpdate("email")}
           alertMessage={alertMessage}
-          // userData={userData}
-          // updateAlert={updateUserEmailAlert}
-          // setUpdateAlert={setupdateUserEmailAlert}
           clearFormState={clearFormState}
           label="Email"
         />

@@ -16,7 +16,6 @@ const AcctSetInputForm = ({
   inputRef,
   handleUpdate,
   label,
-  // alertMessage,
   clearFormState,
 }) => {
   const [alertMessage, setAlertMessage] = useState({ type: "", message: "" });

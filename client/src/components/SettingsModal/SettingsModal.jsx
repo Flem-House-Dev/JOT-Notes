@@ -67,7 +67,6 @@ const SettingsModal = ({ showModal, handleCloseModal }) => {
       onHide={() => {
         handleCloseModal();
         setCurrentMenu("main");
-        // useAccountSettingsForm.clearSettingsFormStates;
       }}
     >
       <Modal.Header closeButton>
@@ -79,10 +78,6 @@ const SettingsModal = ({ showModal, handleCloseModal }) => {
           <Button
             variant="secondary"
             onClick={handleCloseModal}
-            // onClick={() => {
-            //   handleCloseModal();
-            //   setCurrentMenu("main");
-            // }}
           >
             Close
           </Button>
@@ -91,7 +86,6 @@ const SettingsModal = ({ showModal, handleCloseModal }) => {
             variant="Link"
             onClick={() => {
               setCurrentMenu("main");
-              // useAccountSettingsForm.clearSettingsFormStates;
             }}
           >
             <ArrowLeft className="mb-1" height={16} width={16} /> Back

@@ -140,6 +140,7 @@ const updatePassword = async (req, res) => {
     const { currentPassword, newPassword } = req.body;
 
     const user = await User.findById(req.user._id);
+
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -151,7 +152,14 @@ const updatePassword = async (req, res) => {
     user.password = newPassword;
     await user.save();
 
-    res.status(200).json({ message: "Password updated successfully" });
+    const updateUser = {
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+      token: generateToken(user._id, user.username, user.email),
+    };
+
+    res.status(200).json(updateUser);
   } catch (error) {
     console.error("Error updating password: ", error);
     res.status(500).json({ message: "Server error" });
