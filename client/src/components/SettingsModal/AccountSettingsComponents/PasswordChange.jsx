@@ -81,8 +81,8 @@ const PasswordChange = ({}) => {
 
   const onCancel = () => {
     clearForm();
-    setError("");
-    setSuccess("");
+    setAlertMessage({ type: "", message: "" });
+    
   };
 
   return (
