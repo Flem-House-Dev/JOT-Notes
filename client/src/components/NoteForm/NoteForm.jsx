@@ -133,7 +133,7 @@ const NoteForm = ({
               onChange={(event) => setContent(event.target.value)}
               name="content"
               placeholder="note"
-              style={{ height: '100px' }} // Set the height of the textarea
+              style={{ height: "100px" }} // Set the height of the textarea
             />
           </FloatingLabel>
           <div className="note-form-actions d-flex justify-content-end ">
@@ -155,7 +155,12 @@ const NoteForm = ({
                 </Button>
               </div>
             ) : (
-              <Button className="add-btn" variant="secondary" type="submit">
+              <Button
+                className="add-btn"
+                variant="secondary"
+                type="submit"
+                disabled={!title || !content}
+              >
                 Add Note
               </Button>
             )}

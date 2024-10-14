@@ -80,8 +80,7 @@ const getUserProfile = async (req, res) => {
 // update username
 const updateUsername = async (req, res) => {
   try {
-
-    const newUsername = req.body.newUsername;
+    const newUsername = req.body.username;
 
     const user = await User.findById(req.user._id);
     if (!user) {
@@ -96,10 +95,9 @@ const updateUsername = async (req, res) => {
       username: user.username,
       email: user.email,
       token: generateToken(user._id, user.username, user.email),
-    }
+    };
 
     res.status(200).json(updateUser);
-
   } catch (error) {
     if (error.name === "ValidationError") {
       return res.status(400).json({ message: error.message });
@@ -112,7 +110,7 @@ const updateUsername = async (req, res) => {
 // Update email
 const updateEmail = async (req, res) => {
   try {
-    const newEmail = req.body.newEmail;
+    const newEmail = req.body.email;
 
     const user = await User.findById(req.user._id);
     if (!user) {
@@ -127,17 +125,52 @@ const updateEmail = async (req, res) => {
       username: user.username,
       email: user.email,
       token: generateToken(user._id, user.username, user.email),
-    }
+    };
 
     res.status(200).json(updateUser);
   } catch (error) {
     console.error("Error updating email: ", error);
     res.status(500).json({ message: "Server error" });
-    
   }
 };
 
+// Update password
+const updatePassword = async (req, res) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
 
+    const user = await User.findById(req.user._id);
 
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
 
-module.exports = { registerUser, loginUser, getUserProfile, updateUsername, updateEmail };
+    if (!(await user.comparePassword(currentPassword))) {
+      return res.status(400).json({ message: "Invalid password" });
+    }
+
+    user.password = newPassword;
+    await user.save();
+
+    const updateUser = {
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+      token: generateToken(user._id, user.username, user.email),
+    };
+
+    res.status(200).json(updateUser);
+  } catch (error) {
+    console.error("Error updating password: ", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+module.exports = {
+  registerUser,
+  loginUser,
+  getUserProfile,
+  updateUsername,
+  updateEmail,
+  updatePassword,
+};

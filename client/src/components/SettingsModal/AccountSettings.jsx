@@ -1,45 +1,35 @@
 import { useState, useRef } from "react";
-// import { Form, Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 
-import { updateUsername, updateEmail } from "./utils/userUtils";
+import { updateUsername, updateEmail } from "../../utils/userUtils";
 import AcctSetInputForm from "./AccountSettingsComponents/AcctSetInputForms";
 
 const AccountSettings = ({ userData, setUserData, onPasswordChange }) => {
-  const [updateUsernameAlert, setupdateUsernameAlert] = useState(null);
-  const [updateUserEmailAlert, setupdateUserEmailAlert] = useState(null);
+  const [alertMessage, setAlertMessage] = useState({ type: "", message: "" });
   const [isEditingUserName, setIsEditingUserName] = useState(false);
-  const [username, setUsername] = useState(userData.username);
   const [isEditingEmail, setIsEditingEmail] = useState(false);
+  const [username, setUsername] = useState(userData.username);
   const [email, setEmail] = useState(userData.email);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
-  const clearSettingsFormStates = () => {
+  const usernameInputRef = useRef(null);
+  const emailInputRef = useRef(null);
+
+  const clearFormState = () => {
     setIsEditingUserName(false);
     setIsEditingEmail(false);
     setShowDeleteConfirm(false);
   };
 
-  const usernameInputRef = useRef(null);
-  const emailInputRef = useRef(null);
-
-  const handleUpdateUsername = async () => {
+  const handleUpdate = async (type) => {
     try {
-      await updateUsername(username);
-      setupdateUsernameAlert("Username updated successfully");
+      if (type === "username") await updateUsername(username);
+      if (type === "email") await updateEmail(email);
+      setAlertMessage({ type: "success", message: `${type} updated successfully` });
     } catch (error) {
-      setupdateUsernameAlert("Error updating username");
-    }
-  };
-
-  const handleUpdateEmail = async () => {
-    try {
-      await updateEmail(email);
-      setupdateUserEmailAlert("Email updated successfully");
-    } catch (error) {
-      setupdateUserEmailAlert("Error updating email");
+      setAlertMessage({ type: "danger", message: `Error updating ${type}` });
     }
   };
 
@@ -56,11 +46,8 @@ const AccountSettings = ({ userData, setUserData, onPasswordChange }) => {
           inputValue={username}
           setInputValue={setUsername}
           inputRef={usernameInputRef}
-          handleUpdate={handleUpdateUsername}
-          userData={userData}
-          updateAlert={updateUsernameAlert}
-          setUpdateAlert={setupdateUsernameAlert}
-          clearSettingsFormStates={clearSettingsFormStates}
+          handleUpdate={() => handleUpdate("username")}
+          clearFormState={clearFormState}
           label="Username"
         />
 
@@ -71,10 +58,9 @@ const AccountSettings = ({ userData, setUserData, onPasswordChange }) => {
           inputValue={email}
           setInputValue={setEmail}
           inputRef={emailInputRef}
-          handleUpdate={handleUpdateEmail}
-          userData={userData}
-          updateAlert={updateUserEmailAlert}
-          clearSettingsFormStates={clearSettingsFormStates}
+          handleUpdate={() => handleUpdate("email")}
+          alertMessage={alertMessage}
+          clearFormState={clearFormState}
           label="Email"
         />
 
@@ -83,7 +69,7 @@ const AccountSettings = ({ userData, setUserData, onPasswordChange }) => {
           <Button
             variant="secondary"
             onClick={() => {
-              clearSettingsFormStates();
+              clearFormState();
               onPasswordChange();
             }}
             style={{ width: "160px" }}
