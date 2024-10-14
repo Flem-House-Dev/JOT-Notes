@@ -76,4 +76,21 @@ const updatePassword = async (currentPassword, newPassword) => {
   localStorage.setItem("userToken", data.token);
 };
 
-export { getUserData, updateUsername, updateEmail, updatePassword };
+// delete account
+const deleteAccount = async () => {
+  const decodedToken = getDecodedToken();
+  if (!decodedToken) throw new Error("User not authenticated");
+
+  const { userId } = decodedToken;
+  await apiRequest("/api/user/userDelete", "DELETE", { userId });
+  localStorage.removeItem("userToken");
+  // return new Promise((resolve) => setTimeout(resolve, 1000));
+};
+
+export {
+  getUserData,
+  updateUsername,
+  updateEmail,
+  updatePassword,
+  deleteAccount,
+};

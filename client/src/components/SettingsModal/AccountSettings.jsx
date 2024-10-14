@@ -1,10 +1,11 @@
 import { useState, useRef } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import Alert from "react-bootstrap/Alert";
+// import Alert from "react-bootstrap/Alert";
 
 import { updateUsername, updateEmail } from "../../utils/userUtils";
 import AcctSetInputForm from "./AccountSettingsComponents/AcctSetInputForms";
+import DeleteAcctForm from "./AccountSettingsComponents/DeleteAcctForm";
 
 const AccountSettings = ({ userData, setUserData, onPasswordChange }) => {
   const [alertMessage, setAlertMessage] = useState({ type: "", message: "" });
@@ -79,7 +80,12 @@ const AccountSettings = ({ userData, setUserData, onPasswordChange }) => {
         </Form.Group>
 
         {/* Delete Account Section */}
-        <Form.Group className="mt-4">
+        <DeleteAcctForm
+          showDeleteConfirm={showDeleteConfirm}
+          setShowDeleteConfirm={setShowDeleteConfirm}
+        />
+        
+        {/* <Form.Group className="mt-4">
           <Button
             variant="danger"
             onClick={() => setShowDeleteConfirm(true)}
@@ -88,7 +94,7 @@ const AccountSettings = ({ userData, setUserData, onPasswordChange }) => {
             Delete Account
           </Button>
 
-          {/* Confirmation of Account Deletion */}
+     
           {showDeleteConfirm && (
             <Alert variant="danger" className="mt-3">
               <Alert.Heading>Are you sure?</Alert.Heading>
@@ -112,7 +118,8 @@ const AccountSettings = ({ userData, setUserData, onPasswordChange }) => {
               </div>
             </Alert>
           )}
-        </Form.Group>
+        </Form.Group> */}
+        
       </Form>
     </>
   );

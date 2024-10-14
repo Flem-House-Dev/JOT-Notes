@@ -7,6 +7,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  // Set Token and update user state
   const setToken = (token) => {
     localStorage.setItem("userToken", token);
     const decoded = jwtDecode(token);
@@ -22,7 +23,6 @@ export const AuthProvider = ({ children }) => {
         headers: {
           "Content-Type": "application/json",
         },
-
         body: JSON.stringify(user),
       });
 
@@ -33,9 +33,11 @@ export const AuthProvider = ({ children }) => {
       } else {
         const errorData = await response.json();
         console.error("Failed to register user", errorData);
+        throw new Error(errorData.message ||"Failed to register user");
       }
     } catch (error) {
       console.error("Error during login: ", error);
+      throw error;
     }
   };
 
@@ -57,22 +59,26 @@ export const AuthProvider = ({ children }) => {
       } else {
         const errorData = await response.json();
         console.error("Failed to login user", errorData);
+        throw new Error(errorData.message || "Failed to login user");
       }
     } catch (error) {
       console.error("Error during login: ", error);
-      // logout();
+      throw error;
     }
   };
 
   // Logout User
   const logout = async () => {
-    try {
-      localStorage.removeItem("userToken");
-      setUser(null);
-      setIsAuthenticated(false);
-    } catch (error) {
-      console.error(error);
-    }
+    localStorage.removeItem("userToken");
+    setUser(null);
+    setIsAuthenticated(false);
+    // try {
+    //   localStorage.removeItem("userToken");
+    //   setUser(null);
+    //   setIsAuthenticated(false);
+    // } catch (error) {
+    //   console.error(error);
+    // }
   };
 
   
@@ -92,9 +98,7 @@ export const AuthProvider = ({ children }) => {
         } catch (error) {
           console.error("Invalid token", error);
           logout();
-          // setIsAuthenticated(false);
         }
-        // setIsAuthenticated(false);
       }
     };
     checkAuth();
