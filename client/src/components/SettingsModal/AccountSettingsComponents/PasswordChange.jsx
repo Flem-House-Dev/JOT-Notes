@@ -1,18 +1,15 @@
 import { useRef, useState, useEffect } from "react";
 import { updatePassword } from "../../../utils/userUtils";
 
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+import { Form, Button } from "react-bootstrap";
+import PasswordInput from "../../PasswordInput";
 
 import "./accountSetInputForm.css";
 
 const PasswordChange = ({}) => {
-  const currentPasswordRef = useRef(null);
-  const newPasswordRef = useRef(null);
-  const confirmNewPasswordRef = useRef(null);
-
-  // const [error, setError] = useState("");
-  // const [success, setSuccess] = useState("");
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState("");
 
   const [alertMessage, setAlertMessage] = useState({ type: "", message: "" });
   const [fadeOut, setFadeOut] = useState(false);
@@ -36,12 +33,7 @@ const PasswordChange = ({}) => {
   }, [alertMessage]);
 
   const handlePasswordChange = async () => {
-    const currentPassword = currentPasswordRef.current.value;
-    const newPassword = newPasswordRef.current.value;
-    const confirmNewPassword = confirmNewPasswordRef.current.value;
-
     if (!currentPassword || !newPassword || !confirmNewPassword) {
-      // setError("Please fill out all fields");
       setAlertMessage({
         type: "danger",
         message: "Please fill out all fields",
@@ -50,7 +42,6 @@ const PasswordChange = ({}) => {
     }
 
     if (newPassword !== confirmNewPassword) {
-      // setError("Passwords do not match");
       setAlertMessage({ type: "danger", message: "Passwords do not match" });
       return;
     }
@@ -58,15 +49,12 @@ const PasswordChange = ({}) => {
     try {
       await updatePassword(currentPassword, newPassword);
 
-      // setSuccess("Password changed successfully");
-      // setError("");
       setAlertMessage({
         type: "success",
         message: "Password changed successfully",
       });
     } catch (error) {
       console.error("Error changing password: ", error);
-      // setError("Failed to change password");
       setAlertMessage({ type: "danger", message: "Failed to change password" });
     }
 
@@ -74,15 +62,14 @@ const PasswordChange = ({}) => {
   };
 
   const clearForm = () => {
-    currentPasswordRef.current.value = "";
-    newPasswordRef.current.value = "";
-    confirmNewPasswordRef.current.value = "";
+    setCurrentPassword("");
+    setNewPassword("");
+    setConfirmNewPassword("");
   };
 
   const onCancel = () => {
     clearForm();
     setAlertMessage({ type: "", message: "" });
-    
   };
 
   return (
@@ -90,35 +77,29 @@ const PasswordChange = ({}) => {
       {/* Password Change Form (Toggleable) */}
       <h5>Change Password</h5>
       <div className="mt-3">
-        <Form.Group>
-          <Form.Label>Current Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Enter Current Password"
-            ref={currentPasswordRef}
-          />
-        </Form.Group>
 
-        <Form.Group className="mt-2">
-          <Form.Label>New Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Enter New Password"
-            ref={newPasswordRef}
-          />
-        </Form.Group>
+        <PasswordInput
+          label="Current Password"
+          name="currentPassword"
+          value={currentPassword}
+          onChange={(e) => setCurrentPassword(e.target.value)}
+        />
 
-        <Form.Group className="mt-2">
-          <Form.Label>Confirm New Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Confirm Password"
-            ref={confirmNewPasswordRef}
-          />
-        </Form.Group>
+        <PasswordInput
+          label="New Password"
+          name="newPassword"
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
+        />
+
+        <PasswordInput
+          label="Confirm New Password"
+          name="confirmNewPassword"
+          value={confirmNewPassword}
+          onChange={(e) => setConfirmNewPassword(e.target.value)}
+        />
+
         <div className="mt-2" style={{ height: "24px" }}>
-          {/* {error && <p className="text-danger">{error}</p>}
-        {success && <p className="text-success">{success}</p>} */}
           {alertMessage.message && (
             <p
               className={`update-alert ${fadeOut ? "fade-out" : ""}`}
