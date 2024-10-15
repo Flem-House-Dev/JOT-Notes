@@ -8,10 +8,10 @@ import AuthContext from "../../../context/AuthContext";
 import { useState, useContext } from "react";
 
 const DeleteAcctForm = ({ showDeleteConfirm, setShowDeleteConfirm }) => {
-    const navigate = useNavigate();
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState("");
-    const { logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const { logout } = useContext(AuthContext);
 
   const handleDeleteAccount = async () => {
     try {

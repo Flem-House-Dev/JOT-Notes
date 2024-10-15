@@ -2,7 +2,8 @@ import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import logo from "../assets/note-and-pencil.png";
-import { Form, Button, Container, Card } from "react-bootstrap";
+import { Form, Button, Container, Card, InputGroup } from "react-bootstrap";
+import PasswordInput from "../components/PasswordInput";
 
 const RegisterPage = () => {
   const { register } = useContext(AuthContext);
@@ -24,7 +25,6 @@ const RegisterPage = () => {
   };
 
   return (
-
     <div className="register-page d-flex align-items-center justify-content-center">
       <Card className="register-form text-center p-4 shadow">
         <img
@@ -34,9 +34,13 @@ const RegisterPage = () => {
         />
         <h2 className="mb-4">Register</h2>
         <Form onSubmit={handleSubmit}>
-          <Form.Group controlId="username" className="mb-4 d-flex justify-content-center">
+          <Form.Group
+            controlId="username"
+            className="mb-4 d-flex justify-content-center"
+          >
+            <InputGroup className="w-100">
             <Form.Control
-             className="input-field p-2"
+              className="input-field p-2"
               type="text"
               name="username"
               placeholder="username"
@@ -44,29 +48,33 @@ const RegisterPage = () => {
               onChange={handleChange}
               required
             />
+            </InputGroup>
           </Form.Group>
-          <Form.Group controlId="email" className="mb-4 d-flex justify-content-center">
-            <Form.Control
-             className="input-field p-2"
-              type="email"
-              name="email"
-              placeholder="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
+          <Form.Group
+            controlId="email"
+            className="mb-4 d-flex justify-content-center"
+          >
+            <InputGroup className="w-100">
+              <Form.Control
+                className="input-field p-2"
+                type="email"
+                name="email"
+                placeholder="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </InputGroup>
           </Form.Group>
-          <Form.Group controlId="password" className="mb-4 d-flex justify-content-center">
-            <Form.Control
-             className="input-field p-2"
-              type="password"
-              name="password"
-              placeholder="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
-          </Form.Group>
+
+          {/* Password Input */}
+          <PasswordInput
+            label="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+          />
+
           <Button className="register-btn p-2" type="submit">
             Register
           </Button>
