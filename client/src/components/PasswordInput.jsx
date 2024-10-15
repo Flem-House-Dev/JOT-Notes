@@ -20,11 +20,12 @@ const PasswordInput = ({ label, name, value, onChange }) => {
           value={value}
           onChange={onChange}
           required
+          style={{ borderRight: "none" }}
         />
         <InputGroup.Text
           onClick={togglePassword}
           style={{
-            cursor: "pointer",
+            cursor: "pointer", background: "transparent", borderLeft: "none"
           }}
         >
           {showPassword ? <EyeSlash /> : <Eye />}
