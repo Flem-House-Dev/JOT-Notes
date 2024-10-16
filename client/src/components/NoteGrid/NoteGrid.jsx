@@ -40,7 +40,13 @@ const NoteGrid = ({
 
     fetchNotes();
   }, [user]);
-
+  const noteProps = {
+    notes,
+    setContent,
+    setNotes,
+    setSelectedNote,
+    setTitle,
+  };
   // ---------------------------------------------------
 
   return (
@@ -50,12 +56,8 @@ const NoteGrid = ({
           <Col className="flex-grow-0" key={n._id} xs={12} md={6} lg={3}>
             <div className="mb-4 d-flex justify-content-start">
               <Note
-                note={n}
-                notes={notes}
-                setContent={setContent}
-                setNotes={setNotes}
-                setSelectedNote={setSelectedNote}
-                setTitle={setTitle}
+              {...noteProps}
+              note={n}
               />
             </div>
           </Col>

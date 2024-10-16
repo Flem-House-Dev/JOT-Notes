@@ -28,7 +28,10 @@ const AccountSettings = ({ userData, setUserData, onPasswordChange }) => {
     try {
       if (type === "username") await updateUsername(username);
       if (type === "email") await updateEmail(email);
-      setAlertMessage({ type: "success", message: `${type} updated successfully` });
+      setAlertMessage({
+        type: "success",
+        message: `${type} updated successfully`,
+      });
     } catch (error) {
       setAlertMessage({ type: "danger", message: `Error updating ${type}` });
     }
@@ -84,42 +87,6 @@ const AccountSettings = ({ userData, setUserData, onPasswordChange }) => {
           showDeleteConfirm={showDeleteConfirm}
           setShowDeleteConfirm={setShowDeleteConfirm}
         />
-        
-        {/* <Form.Group className="mt-4">
-          <Button
-            variant="danger"
-            onClick={() => setShowDeleteConfirm(true)}
-            style={{ width: "160px" }}
-          >
-            Delete Account
-          </Button>
-
-     
-          {showDeleteConfirm && (
-            <Alert variant="danger" className="mt-3">
-              <Alert.Heading>Are you sure?</Alert.Heading>
-              <p>
-                This action cannot be undone. Do you want to proceed with
-                deleting your account?
-              </p>
-              <div className="d-flex justify-content-between">
-                <Button
-                  variant="secondary"
-                  onClick={() => setShowDeleteConfirm(false)}
-                >
-                  Cancel
-                </Button>
-                <Button
-                  variant="danger"
-                  onClick={() => alert("Account Deleted")}
-                >
-                  Yes, Delete
-                </Button>
-              </div>
-            </Alert>
-          )}
-        </Form.Group> */}
-        
       </Form>
     </>
   );

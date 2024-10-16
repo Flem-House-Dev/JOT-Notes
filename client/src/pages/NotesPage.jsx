@@ -38,6 +38,14 @@ const NotesPage = () => {
     navigate("/login");
   };
 
+  const noteProps = {
+    notes,
+    setNotes,
+    setTitle,
+    setContent,
+    setSelectedNote,
+  };
+
   return (
     <div className="p-4 bg-light min-vh-100">
       <Header handleShow={handleShow} />
@@ -49,23 +57,25 @@ const NotesPage = () => {
         handleLogout={handleLogout}
       />
       <NoteForm
+        {...noteProps}
         title={title}
-        notes={notes}
+        // notes={notes}
         content={content}
         selectedNote={selectedNote}
-        setTitle={setTitle}
-        setContent={setContent}
-        setNotes={setNotes}
-        setSelectedNote={setSelectedNote}
+        // setTitle={setTitle}
+        // setContent={setContent}
+        // setNotes={setNotes}
+        // setSelectedNote={setSelectedNote}
       />
 
       <NoteGrid
+        {...noteProps}
         // className="note-grid"
-        notes={notes}
-        setNotes={setNotes}
-        setSelectedNote={setSelectedNote}
-        setTitle={setTitle}
-        setContent={setContent}
+        // notes={notes}
+        // setNotes={setNotes}
+        // setSelectedNote={setSelectedNote}
+        // setTitle={setTitle}
+        // setContent={setContent}
       />
       <SettingsModal
         handleCloseModal={handleCloseModal}

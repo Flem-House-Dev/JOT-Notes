@@ -1,4 +1,5 @@
-import Note from "../models/noteModel";
+// import Note from "../models/noteModel";
+const Note = require("../models/noteModel");
 
 // Add a tag to an existing note
 const addTag = async (req, res) => {
