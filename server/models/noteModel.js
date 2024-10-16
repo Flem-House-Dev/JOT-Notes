@@ -18,6 +18,10 @@ const noteSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  tags: {
+    type: [String],
+    default: [],
+  },
 });
 
 const Note = model("Note", noteSchema);

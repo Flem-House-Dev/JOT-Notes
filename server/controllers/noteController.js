@@ -1,29 +1,62 @@
 const Note = require("../models/noteModel");
 
 // Get all notes
+// const getNotes = async (req, res) => {
+//   try {
+//     const notes = await Note.find({ user: req.user._id }).sort({ date: -1 });
+
+//     res.status(200).json(notes);
+//   } catch (error) {
+//     res.status(500).json(error);
+//   }
+// };
+
 const getNotes = async (req, res) => {
   try {
-    const notes = await Note.find({ user: req.user._id }).sort({ date: -1 });
+    const { tags } = req.query;
+    const query = { user: req.user._id };
 
+    if (tags) {
+      query.tags = { $in: tags.split(",") };
+    }
+
+    const notes = await Note.find(query).sort({ date: -1 });
     res.status(200).json(notes);
   } catch (error) {
-    res.status(500).json(error);
+    res.status(500).json({ error: error.message });
   }
 };
 
 // Add a note
+// const addNote = async (req, res) => {
+//   try {
+//     const { title, content } = req.body;
+//     const note = await Note.create({
+//       title,
+//       content,
+//       user: req.user._id,
+//     });
+
+//     res.status(201).json(note);
+//   } catch (error) {
+//     res.status(500).json(error);
+//   }
+// };
+
 const addNote = async (req, res) => {
   try {
-    const { title, content } = req.body;
+    const { title, content, tags } = req.body;
+
     const note = await Note.create({
       title,
       content,
+      tags: tags || [],
       user: req.user._id,
     });
 
     res.status(201).json(note);
   } catch (error) {
-    res.status(500).json(error);
+    res.status(500).json({ error: error.message });
   }
 };
 
