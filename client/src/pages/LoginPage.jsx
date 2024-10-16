@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import logo from "../assets/note-and-pencil.png";
 import { Button, Form, Card, Alert, InputGroup } from "react-bootstrap";
-import PasswordInput from "../components/PasswordInput";
+import PasswordInput from "../components/PasswordInput/PasswordInput";
 
 const LoginPage = () => {
   const { login, isAuthenticated } = useContext(AuthContext);

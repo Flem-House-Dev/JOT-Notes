@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import { updatePassword } from "../../../utils/userUtils";
 
 import { Form, Button } from "react-bootstrap";
-import PasswordInput from "../../PasswordInput";
+import PasswordInput from "../../PasswordInput/PasswordInput";
 
 import "./accountSetInputForm.css";
 
