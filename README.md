@@ -3,7 +3,6 @@
 </p>
 
 # Jot Notes (Journal of Thoughts)
-
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Description
@@ -12,38 +11,47 @@
 ---
 
 ## Table of Contents
-1. [Getting Started](#getting-started)  
-2. [Usage](#usage)  
-3. [License](#license)  
-4. [Questions](#questions)  
+1. [Tech Stack](#tech-stack)
+2. [Getting Started](#getting-started)  
+3. [Usage](#usage)  
+4. [License](#license)  
+5. [Questions](#questions)  
+
+---
+
+## Tech Stack
+### Frontend
+- React
+- React-Bootstrap
+- CSS
+- JavaScript
+
+### Backend
+- Node.js
+- Express
+- MongoDB
+- JSON Web Token (JWT) for authentication
 
 ---
 
 ## Getting Started
-
 To get started, visit [Jot Notes](https://jot-notes-j04f.onrender.com) online. No downloads are required.
 
 ---
 
 ## Usage
-
 1. **Create an Account / Log In**:  
    Start by registering or logging in with your existing account.
-
 2. **Add a Note**:  
    Enter a title and content, then click the **Add** button to save your note.
-
 3. **Update a Note**:  
    Select a note from your list, edit the title or content, and click **Save**.
-
 4. **Delete a Note**:  
    Click the **X** button at the top-right corner of the note to remove it.
 
 ### Screenshots:
-
 **Login Screen:**  
 ![login screen](./assets/login_screen.PNG)
-
 **Main Screen:**  
 ![main screen](./assets/main_screen.PNG)
 
@@ -59,15 +67,12 @@ Access the **Settings Menu** from the left sidebar to:
 ---
 
 ## License
-
 This project is licensed under the **MIT License**. For more details, see the [license page](https://opensource.org/licenses/MIT).
 
 ---
 
 ## Questions
-
 If you have any questions or suggestions, feel free to reach out!  
-
 - **GitHub**: [Flem-House-Dev](https://github.com/Flem-House-Dev)  
 - **Email**: [flemhousedev@gmail.com](mailto:flemhousedev@gmail.com?subject=JOT%20Notes%20Inquiry)  
 
