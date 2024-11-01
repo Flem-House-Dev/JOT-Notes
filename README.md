@@ -1,4 +1,4 @@
-![JotNoteLogo](./assets/note-and-pencil-sm.PNG)
+![JotNoteLogo](./assets/note-and-pencil-sm.png)
 
 # Jot Notes (Journal of Thoughts)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
