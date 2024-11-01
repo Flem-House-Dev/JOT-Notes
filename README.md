@@ -1,6 +1,6 @@
-<p align="center">
+
   <img src="./assets/note-and-pencil-sm.png" alt="JotNoteLogo" width="100"/>
-</p>
+
 
 # Jot Notes (Journal of Thoughts)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -52,6 +52,7 @@ To get started, visit [Jot Notes](https://jot-notes-j04f.onrender.com) online. N
 ### Screenshots:
 **Login Screen:**  
 ![login screen](./assets/login_screen.PNG)
+
 **Main Screen:**  
 ![main screen](./assets/main_screen.PNG)
 
